@@ -39,7 +39,7 @@ export default function StudentRegister() {
 
     if (success) return (
         <div className="register-page">
-            <nav className="auth-nav"><span className="auth-nav-logo">🎓 PlacementHub</span></nav>
+            <nav className="auth-nav"><span className="auth-nav-logo">🎓 JobBro</span></nav>
             <div className="register-body">
                 <div className="register-card" style={{ textAlign: 'center' }}>
                     <div style={{ fontSize: '3rem', marginBottom: 16 }}>🎉</div>
@@ -54,7 +54,7 @@ export default function StudentRegister() {
     return (
         <div className="register-page">
             <nav className="auth-nav">
-                <span className="auth-nav-logo">🎓 PlacementHub</span>
+                <span className="auth-nav-logo">🎓 JobBro</span>
                 <span style={{ marginLeft: 'auto', color: 'var(--primary)', fontWeight: 600, fontSize: '0.875rem', cursor: 'pointer' }} onClick={() => navigate('/')}>← Back to Login</span>
             </nav>
             <div className="register-body">

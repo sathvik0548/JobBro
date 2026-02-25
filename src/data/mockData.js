@@ -1,5 +1,5 @@
 // =============================================
-// HELPERS & CONSTANTS — PlacementHub
+// HELPERS & CONSTANTS — JobBro
 // =============================================
 
 export const DEPARTMENTS = ['CSE', 'ECE', 'ME', 'Civil', 'MBA'];

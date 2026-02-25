@@ -39,7 +39,7 @@ export function addDeadlineToCalendar(job) {
             `CTC: ${job.ctc}`,
             `Type: ${job.type}`,
             ``,
-            `⚠️ This is the LAST DATE to apply for this position on PlacementHub.`,
+            `⚠️ This is the LAST DATE to apply for this position on JobBro.`,
             ``,
             `Branches: ${job.branches.join(', ')}`,
             `Min CGPA: ${job.minCGPA}`,
@@ -92,7 +92,7 @@ export function buildCalendarUrl(job) {
         action: 'TEMPLATE',
         text: `📋 Apply by: ${job.company} — ${job.title}`,
         dates: `${start}/${end}`,
-        details: `Last date to apply for ${job.title} at ${job.company} via PlacementHub.\n\nLocation: ${job.location}`,
+        details: `Last date to apply for ${job.title} at ${job.company} via JobBro.\n\nLocation: ${job.location}`,
         location: job.location,
     });
 

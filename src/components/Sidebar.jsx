@@ -30,7 +30,7 @@ export default function Sidebar() {
     return (
         <aside className="sidebar">
             <div className="sidebar-logo">
-                <div className="sidebar-logo-text">🎓 PlacementHub</div>
+                <div className="sidebar-logo-text">🎓 JobBro</div>
                 <div className="sidebar-logo-sub">{user?.role === 'admin' ? 'Placement Cell' : 'Student Portal'}</div>
             </div>
             <nav className="sidebar-nav">
