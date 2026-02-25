@@ -32,8 +32,8 @@ export default function Landing() {
     return (
         <div className="auth-page">
             <nav className="auth-nav">
-                <span className="auth-nav-logo">🎓 PlacementHub</span>
-                <span style={{ marginLeft: 10, fontSize: '0.75rem', color: 'var(--text-muted)', background: 'var(--primary-muted)', padding: '2px 10px', borderRadius: 99, fontWeight: 600 }}>College Placement Portal</span>
+                <span className="auth-nav-logo">🎓 JobBro</span>
+                <span style={{ marginLeft: 10, fontSize: '0.75rem', color: 'var(--text-muted)', background: 'var(--primary-muted)', padding: '2px 10px', borderRadius: 99, fontWeight: 600 }}>JobBro</span>
             </nav>
 
             <div className="auth-body">
