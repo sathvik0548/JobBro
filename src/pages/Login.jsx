@@ -39,7 +39,7 @@ export default function Login() {
                 {!mode && (
                     <div className="auth-hero">
                         <h1>Your Campus, Your Dream Job</h1>
-                        <p>One Platform</p>
+                        <h1>One Platform</h1>
                     </div>
                 )}
                 {!mode ? (
