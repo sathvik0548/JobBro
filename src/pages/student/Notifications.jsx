@@ -1,7 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 
 export default function Notifications() {
     const { user, notifications, markAllNotificationsAsRead } = useApp();
+    const navigate = useNavigate();
     const studentNotifs = notifications.filter(n => n.studentId === user.id)
         .sort((a, b) => new Date(b.date) - new Date(a.date));
 
@@ -16,7 +18,13 @@ export default function Notifications() {
 
     return (
         <div className="page-container">
-            <header className="page-header" style={{ display: 'flex', justifyContent: 'center' }}>
+            <header className="page-header" style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
+                <button
+                    onClick={() => navigate('/student/dashboard')}
+                    style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                >
+                    ← Back to Dashboard
+                </button>
                 <h1 style={{ textAlign: 'center', fontSize: '2.5rem', fontWeight: 900, color: '#1e293b' }}>Notifications</h1>
             </header>
 
