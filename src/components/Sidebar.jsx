@@ -6,6 +6,7 @@ const STUDENT_NAV = [
     { icon: '💼', label: 'Browse Jobs', path: '/student/jobs' },
     { icon: '📋', label: 'My Applications', path: '/student/applications' },
     { icon: '👤', label: 'My Profile', path: '/student/profile' },
+    { icon: '🔔', label: 'Notifications', path: '/student/notifications' },
 ];
 
 const ADMIN_NAV = [

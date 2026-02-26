@@ -392,5 +392,43 @@
             "appliedDate": "2026-02-25",
             "status": "Applied"
         }
+    ],
+    "notifications": [
+        {
+            "id": "n1",
+            "studentId": "s1",
+            "type": "NEW_JOB",
+            "title": "Google posted Full Stack Developer — you match 75%!",
+            "message": "Deadline: 2026-03-05",
+            "date": "2026-02-26T10:00:00Z",
+            "read": false
+        },
+        {
+            "id": "n2",
+            "studentId": "s1",
+            "type": "NEW_JOB",
+            "title": "TCS posted SDE-II — you match 75%!",
+            "message": "Deadline: 2026-02-15",
+            "date": "2026-02-25T14:30:00Z",
+            "read": true
+        },
+        {
+            "id": "n3",
+            "studentId": "s1",
+            "type": "APPLICATION_SENT",
+            "title": "Your application for Systems Engineer at Infosys was submitted! 🚀",
+            "message": "Just now",
+            "date": "2026-02-26T11:15:00Z",
+            "read": false
+        },
+        {
+            "id": "n4",
+            "studentId": "s1",
+            "type": "STATUS_UPDATE",
+            "title": "Your application for Systems Engineer at Infosys was updated from Applied → Selected 🥳",
+            "message": "Just now",
+            "date": "2026-02-26T11:20:00Z",
+            "read": false
+        }
     ]
 }

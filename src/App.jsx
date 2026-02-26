@@ -12,6 +12,7 @@ import BrowseJobs from './pages/student/BrowseJobs';
 import JobDetail from './pages/student/JobDetail';
 import MyApplications from './pages/student/MyApplications';
 import StudentProfile from './pages/student/StudentProfile';
+import Notifications from './pages/student/Notifications';
 
 // Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -44,6 +45,7 @@ function AppRoutes() {
             <Route path="/student/jobs/:id" element={<ProtectedRoute role="student"><JobDetail /></ProtectedRoute>} />
             <Route path="/student/applications" element={<ProtectedRoute role="student"><MyApplications /></ProtectedRoute>} />
             <Route path="/student/profile" element={<ProtectedRoute role="student"><StudentProfile /></ProtectedRoute>} />
+            <Route path="/student/notifications" element={<ProtectedRoute role="student"><Notifications /></ProtectedRoute>} />
 
             {/* Admin */}
             <Route path="/admin/dashboard" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />

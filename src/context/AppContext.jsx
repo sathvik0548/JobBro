@@ -25,6 +25,7 @@ export function AppProvider({ children }) {
     const jobs = db.jobs || [];
     const applications = db.applications || [];
     const students = (db.users || []).filter(u => u.role === 'student');
+    const notifications = db.notifications || [];
 
     useEffect(() => {
         // Give a tiny simulated network delay on load
@@ -136,6 +137,23 @@ export function AppProvider({ children }) {
         return { success: true };
     }
 
+    async function markAllNotificationsAsRead(studentId) {
+        const newNotifications = db.notifications.map(n =>
+            n.studentId === studentId ? { ...n, read: true } : n
+        );
+        saveDb({ ...db, notifications: newNotifications });
+    }
+
+    async function addNotification(notif) {
+        const newNotif = {
+            id: 'n' + Date.now(),
+            date: new Date().toISOString(),
+            read: false,
+            ...notif
+        };
+        saveDb({ ...db, notifications: [newNotif, ...db.notifications] });
+    }
+
     function getStudentApplications(studentId) {
         return applications
             .filter(a => a.studentId === studentId)
@@ -154,11 +172,12 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider value={{
-            user, jobs, applications, students, loading,
+            user, jobs, applications, students, notifications, loading,
             login, logout, register,
             applyToJob, updateApplicationStatus,
             addJob, updateJob, deleteJob,
             updateStudent,
+            markAllNotificationsAsRead, addNotification,
             getStudentApplications, getJobApplicants, hasApplied,
         }}>
             {children}
