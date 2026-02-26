@@ -36,6 +36,12 @@ export default function Login() {
             </nav>
 
             <div className="auth-body">
+                {!mode && (
+                    <div className="auth-hero">
+                        <h1>Your Campus, Your Dream Job</h1>
+                        <p>One Platform</p>
+                    </div>
+                )}
                 {!mode ? (
                     <div className="auth-cards">
                         <div className="auth-card" onClick={() => { setMode('student'); fillDemo('student'); }}>
