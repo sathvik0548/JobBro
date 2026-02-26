@@ -30,30 +30,30 @@ export default function StudentProfile() {
             alert('Failed to read file');
             setUploading(false);
         };
+        reader.readAsDataURL(file);
+    };
 
-        const handleResumeUpload = async (e) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
+    const handleResumeUpload = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-            // Validation
-            const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-            if (!allowedTypes.includes(file.type)) return alert('Please select a PDF or Word document');
-            if (file.size > 5 * 1024 * 1024) return alert('File size must be under 5MB');
+        // Validation
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if (!allowedTypes.includes(file.type)) return alert('Please select a PDF or Word document');
+        if (file.size > 5 * 1024 * 1024) return alert('File size must be under 5MB');
 
-            setUploadingResume(true);
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-                const base64String = event.target.result;
-                const res = await updateStudent(user.id, { resume: base64String });
-                if (!res.success) alert('Failed to upload resume');
-                setUploadingResume(false);
-                setImgError(false); // Reset error if any for preview
-            };
-            reader.onerror = () => {
-                alert('Failed to read file');
-                setUploadingResume(false);
-            };
-            reader.readAsDataURL(file);
+        setUploadingResume(true);
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const base64String = event.target.result;
+            const res = await updateStudent(user.id, { resume: base64String });
+            if (!res.success) alert('Failed to upload resume');
+            setUploadingResume(false);
+            setImgError(false); // Reset error if any for preview
+        };
+        reader.onerror = () => {
+            alert('Failed to read file');
+            setUploadingResume(false);
         };
         reader.readAsDataURL(file);
     };
