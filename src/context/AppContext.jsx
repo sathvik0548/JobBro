@@ -1,74 +1,57 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import initialDb from '../../db.json';
 
 const AppContext = createContext(null);
-const BASE_URL = 'http://localhost:3000';
 
 export function AppProvider({ children }) {
     const [user, setUser] = useState(() => {
         try { return JSON.parse(localStorage.getItem('ph_user')) || null; } catch { return null; }
     });
-    const [jobs, setJobs] = useState([]);
-    const [applications, setApplications] = useState([]);
-    const [students, setStudents] = useState([]);
+
+    // Load local db or initialize with db.json data
+    const [db, setDb] = useState(() => {
+        try {
+            const local = JSON.parse(localStorage.getItem('jobbro_db'));
+            if (local && local.users && local.jobs) return local;
+        } catch (e) { }
+
+        localStorage.setItem('jobbro_db', JSON.stringify(initialDb));
+        return initialDb;
+    });
+
     const [loading, setLoading] = useState(true);
 
+    // Derived states
+    const jobs = db.jobs || [];
+    const applications = db.applications || [];
+    const students = (db.users || []).filter(u => u.role === 'student');
+
     useEffect(() => {
-        const loadInitialData = async () => {
-            try {
-                const [jobsRes, appsRes, usersRes] = await Promise.all([
-                    fetch(`${BASE_URL}/jobs`),
-                    fetch(`${BASE_URL}/applications`),
-                    fetch(`${BASE_URL}/users`)
-                ]);
-
-                const jobsData = await jobsRes.json();
-                const appsData = await appsRes.json();
-                const usersData = await usersRes.json();
-
-                setJobs(jobsData);
-                setApplications(appsData);
-                setStudents(usersData.filter(u => u.role === 'student'));
-            } catch (error) {
-                console.error('Failed to load data from server:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadInitialData();
+        // Give a tiny simulated network delay on load
+        const timer = setTimeout(() => setLoading(false), 500);
+        return () => clearTimeout(timer);
     }, []);
 
-    const fetchData = async () => {
-        try {
-            const [jobsRes, appsRes, usersRes] = await Promise.all([
-                fetch(`${BASE_URL}/jobs`),
-                fetch(`${BASE_URL}/applications`),
-                fetch(`${BASE_URL}/users`)
-            ]);
-            setJobs(await jobsRes.json());
-            setApplications(await appsRes.json());
-            const usersData = await usersRes.json();
-            setStudents(usersData.filter(u => u.role === 'student'));
-        } catch (error) {
-            console.error('Fetch error:', error);
-        }
+    const saveDb = (newDb) => {
+        setDb(newDb);
+        localStorage.setItem('jobbro_db', JSON.stringify(newDb));
     };
 
     async function login(email, password) {
-        try {
-            const res = await fetch(`${BASE_URL}/users?email=${email}&password=${password}`);
-            const data = await res.json();
-            if (data.length > 0) {
-                const u = { ...data[0] };
-                delete u.password;
-                setUser(u);
-                localStorage.setItem('ph_user', JSON.stringify(u));
-                return { success: true, role: u.role };
-            }
-            return { success: false, error: 'Invalid email or password.' };
-        } catch (error) {
-            return { success: false, error: 'Server error. Please try again later.' };
+        setLoading(true);
+        // Simulate network delay
+        await new Promise(r => setTimeout(r, 600));
+        setLoading(false);
+
+        const foundUser = db.users.find(u => u.email === email && u.password === password);
+        if (foundUser) {
+            const u = { ...foundUser };
+            delete u.password;
+            setUser(u);
+            localStorage.setItem('ph_user', JSON.stringify(u));
+            return { success: true, role: u.role };
         }
+        return { success: false, error: 'Invalid email or password.' };
     }
 
     function logout() {
@@ -77,36 +60,27 @@ export function AppProvider({ children }) {
     }
 
     async function register(data) {
-        try {
-            const existsRes = await fetch(`${BASE_URL}/users?email=${data.email}`);
-            const existsData = await existsRes.json();
-            if (existsData.length > 0) return { success: false, error: 'Email already registered.' };
+        setLoading(true);
+        await new Promise(r => setTimeout(r, 600));
+        setLoading(false);
 
-            const newStudent = {
-                id: 's' + Date.now(),
-                role: 'student',
-                ...data,
-            };
+        const exists = db.users.some(u => u.email === data.email);
+        if (exists) return { success: false, error: 'Email already registered.' };
 
-            const res = await fetch(`${BASE_URL}/users`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newStudent)
-            });
+        const newStudent = {
+            id: 's' + Date.now(),
+            role: 'student',
+            ...data,
+        };
 
-            if (res.ok) {
-                await fetchData();
-                return { success: true };
-            }
-            return { success: false, error: 'Registration failed.' };
-        } catch (error) {
-            return { success: false, error: 'Server error.' };
-        }
+        const newDb = { ...db, users: [...db.users, newStudent] };
+        saveDb(newDb);
+        return { success: true };
     }
 
     async function applyToJob(jobId) {
         if (!user) return { success: false };
-        const already = applications.find(a => a.jobId === jobId && a.studentId === user.id);
+        const already = db.applications.find(a => a.jobId === jobId && a.studentId === user.id);
         if (already) return { success: false, error: 'Already applied.' };
 
         const newApp = {
@@ -117,98 +91,48 @@ export function AppProvider({ children }) {
             status: 'Applied',
         };
 
-        try {
-            const res = await fetch(`${BASE_URL}/applications`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newApp)
-            });
-            if (res.ok) {
-                await fetchData();
-                return { success: true };
-            }
-        } catch (error) {
-            return { success: false, error: 'Could not apply. Try again.' };
-        }
+        const newDb = { ...db, applications: [...db.applications, newApp] };
+        saveDb(newDb);
+        return { success: true };
     }
 
     async function updateApplicationStatus(appId, newStatus) {
-        try {
-            await fetch(`${BASE_URL}/applications/${appId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status: newStatus })
-            });
-            await fetchData();
-        } catch (error) {
-            console.error('Status update failed:', error);
-        }
+        const newApps = db.applications.map(a =>
+            a.id === appId ? { ...a, status: newStatus } : a
+        );
+        saveDb({ ...db, applications: newApps });
     }
 
     async function addJob(jobData) {
         const newJob = { id: 'j' + Date.now(), ...jobData, postedDate: new Date().toISOString().split('T')[0] };
-        try {
-            const res = await fetch(`${BASE_URL}/jobs`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newJob)
-            });
-            await fetchData();
-            return newJob;
-        } catch (error) {
-            console.error('Add job failed:', error);
-        }
+        saveDb({ ...db, jobs: [newJob, ...db.jobs] });
+        return newJob;
     }
 
     async function updateJob(jobId, updates) {
-        try {
-            await fetch(`${BASE_URL}/jobs/${jobId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updates)
-            });
-            await fetchData();
-        } catch (error) {
-            console.error('Update job failed:', error);
-        }
+        const newJobs = db.jobs.map(j => j.id === jobId ? { ...j, ...updates } : j);
+        saveDb({ ...db, jobs: newJobs });
     }
 
     async function deleteJob(jobId) {
-        try {
-            await fetch(`${BASE_URL}/jobs/${jobId}`, { method: 'DELETE' });
-            // Note: Applications linked to this job should be deleted too if we want strict consistency
-            // but json-server doesn't do cascading deletes. We'll handle it manually for the demo.
-            const jobApps = applications.filter(a => a.jobId === jobId);
-            await Promise.all(jobApps.map(a => fetch(`${BASE_URL}/applications/${a.id}`, { method: 'DELETE' })));
-            await fetchData();
-        } catch (error) {
-            console.error('Delete job failed:', error);
-        }
+        const newJobs = db.jobs.filter(j => j.id !== jobId);
+        const newApps = db.applications.filter(a => a.jobId !== jobId);
+        saveDb({ ...db, jobs: newJobs, applications: newApps });
     }
 
     async function updateStudent(studentId, updates) {
-        try {
-            const res = await fetch(`${BASE_URL}/users/${studentId}`, {
-                method: 'PATCH',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(updates)
-            });
-            if (res.ok) {
-                const updatedUser = await res.json();
-                if (user?.id === studentId) {
-                    const sessionUser = { ...updatedUser };
-                    delete sessionUser.password;
-                    setUser(sessionUser);
-                    localStorage.setItem('ph_user', JSON.stringify(sessionUser));
-                }
-                await fetchData();
-                return { success: true };
-            }
-            return { success: false, error: 'Update failed' };
-        } catch (error) {
-            console.error('Update student failed:', error);
-            return { success: false, error: 'Server error' };
+        const newUsers = db.users.map(u => u.id === studentId ? { ...u, ...updates } : u);
+        saveDb({ ...db, users: newUsers });
+
+        // Update current session user if they updated their own profile
+        if (user?.id === studentId) {
+            const updatedUser = newUsers.find(u => u.id === studentId);
+            const sessionUser = { ...updatedUser };
+            delete sessionUser.password;
+            setUser(sessionUser);
+            localStorage.setItem('ph_user', JSON.stringify(sessionUser));
         }
+        return { success: true };
     }
 
     function getStudentApplications(studentId) {
@@ -244,4 +168,3 @@ export function AppProvider({ children }) {
 export function useApp() {
     return useContext(AppContext);
 }
-

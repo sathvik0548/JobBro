@@ -53,6 +53,22 @@
         "MATLAB"
       ],
       "resume": ""
+    },
+    {
+      "id": "s1772069694410",
+      "role": "student",
+      "name": "sathvik",
+      "email": "badamsathvik@gmail.com",
+      "password": "1234",
+      "dept": "CSE",
+      "year": "2nd",
+      "cgpa": 8.5,
+      "skills": [
+        "c",
+        "python",
+        "Java"
+      ],
+      "resume": ""
     }
   ],
   "jobs": [
