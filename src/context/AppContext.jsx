@@ -196,8 +196,9 @@ export function AppProvider({ children }) {
 
     return (
         <AppContext.Provider value={{
-            user, jobs, applications, students, notifications, loading,
+            user, db, jobs, applications, students, notifications, loading,
             login, logout, register,
+            saveDb,
             applyToJob, updateApplicationStatus,
             addJob, updateJob, deleteJob,
             updateUser,
