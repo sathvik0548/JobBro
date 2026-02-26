@@ -11,6 +11,7 @@ export default function StudentRegister() {
     const [skillInput, setSkillInput] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const [uploadingResume, setUploadingResume] = useState(false);
 
     function set(field, val) { setForm(f => ({ ...f, [field]: val })); }
 
@@ -22,6 +23,27 @@ export default function StudentRegister() {
         }
     }
     function removeSkill(s) { setSkills(prev => prev.filter(x => x !== s)); }
+
+    const handleResumeUpload = (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        if (!allowedTypes.includes(file.type)) return alert('Please select a PDF or Word document');
+        if (file.size > 5 * 1024 * 1024) return alert('File size must be under 5MB');
+
+        setUploadingResume(true);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            set('resume', event.target.result);
+            setUploadingResume(false);
+        };
+        reader.onerror = () => {
+            alert('Failed to read file');
+            setUploadingResume(false);
+        };
+        reader.readAsDataURL(file);
+    };
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -109,8 +131,21 @@ export default function StudentRegister() {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="form-label">Resume Link <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(Google Drive / optional)</span></label>
-                            <input className="form-control" value={form.resume} onChange={e => set('resume', e.target.value)} placeholder="https://drive.google.com/..." />
+                            <label className="form-label">Resume Document * <span style={{ fontWeight: 400, color: 'var(--text-muted)' }}>(PDF only)</span></label>
+                            <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                                <label htmlFor="resume-upload" className={`btn ${uploadingResume ? 'btn-ghost' : 'btn-primary'}`} style={{ cursor: 'pointer', flex: 1 }}>
+                                    {uploadingResume ? '⏳ Reading File...' : (form.resume ? '✅ Resume Attached' : '📤 Upload Resume (PDF)')}
+                                </label>
+                                <input
+                                    id="resume-upload"
+                                    type="file"
+                                    accept=".pdf,application/pdf"
+                                    style={{ display: 'none' }}
+                                    onChange={handleResumeUpload}
+                                    required={!form.resume}
+                                />
+                                {form.resume && <span style={{ fontSize: '0.8rem', color: 'var(--success)', fontWeight: 600 }}>File Ready!</span>}
+                            </div>
                         </div>
                         <div className="form-row">
                             <div className="form-group">
