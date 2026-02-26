@@ -3,6 +3,7 @@ import { AppProvider, useApp } from './context/AppContext';
 
 // Public pages
 import Landing from './pages/Landing';
+import Login from './pages/Login';
 import StudentRegister from './pages/StudentRegister';
 
 // Student pages
@@ -32,7 +33,9 @@ function AppRoutes() {
     return (
         <Routes>
             {/* Public */}
-            <Route path="/" element={user ? <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/student/dashboard'} replace /> : <Landing />} />
+            <Route path="/" element={user ? <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/student/dashboard'} replace /> : <Login />} />
+            <Route path="/landing" element={<Landing />} />
+            <Route path="/login" element={user ? <Navigate to={user.role === 'admin' ? '/admin/dashboard' : '/student/dashboard'} replace /> : <Login />} />
             <Route path="/register" element={<StudentRegister />} />
 
             {/* Student */}

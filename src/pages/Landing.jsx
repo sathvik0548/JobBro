@@ -1,98 +1,198 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
 
 export default function Landing() {
-    const [mode, setMode] = useState(null); // null | 'student' | 'admin'
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
-    const { login } = useApp();
     const navigate = useNavigate();
 
-    function fillDemo(role) {
-        if (role === 'student') { setEmail('rahul@college.edu'); setPassword('123456'); }
-        else { setEmail('admin@placement.edu'); setPassword('123456'); }
-    }
-
-    async function handleLogin(e) {
-        e.preventDefault();
-        setLoading(true);
-        setError('');
-        const result = await login(email, password);
-        setLoading(false);
-        if (result.success) {
-            navigate(result.role === 'admin' ? '/admin/dashboard' : '/student/dashboard');
-        } else {
-            setError(result.error);
-        }
-    }
-
     return (
-        <div className="auth-page">
-            <nav className="auth-nav">
-                <span className="auth-nav-logo">🎓 JobBro</span>
-                <span style={{ marginLeft: 10, fontSize: '0.75rem', color: 'var(--text-muted)', background: 'var(--primary-muted)', padding: '2px 10px', borderRadius: 99, fontWeight: 600 }}>JobBro</span>
-            </nav>
-
-            <div className="auth-body">
-                {!mode ? (
-                    <>
-                        <div className="auth-hero">
-                            <h1>Your Gateway to<br /><span style={{ color: 'var(--primary)' }}>Career Opportunities</span></h1>
-                            <p>Connecting students with top companies through a streamlined placement process</p>
+        <div className="landing-page">
+            {/* Header / Navbar */}
+            <header className="landing-header">
+                <div className="landing-container">
+                    <nav className="landing-nav">
+                        <div className="landing-logo">
+                            <span className="logo-icon">🎓</span>
+                            <span className="logo-text">JobBro Portal</span>
                         </div>
-                        <div className="auth-cards">
-                            <div className="auth-card" onClick={() => { setMode('student'); fillDemo('student'); }}>
-                                <div className="auth-card-icon">🎓</div>
-                                <div className="auth-card-title">Student Login</div>
-                                <div className="auth-card-desc">Browse jobs, apply to opportunities, and track your application status</div>
-                                <button className="btn btn-primary w-full">Login as Student</button>
-                            </div>
-                            <div className="auth-card" onClick={() => { setMode('admin'); fillDemo('admin'); }}>
-                                <div className="auth-card-icon">🏛️</div>
-                                <div className="auth-card-title">Placement Cell</div>
-                                <div className="auth-card-desc">Post jobs, manage applicants, and update application statuses</div>
-                                <button className="btn btn-outline w-full">Login as Admin</button>
-                            </div>
+                        <ul className="nav-links">
+                            <li><a href="#students">Students</a></li>
+                            <li><a href="#recruiters">Recruiters</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                            <li><a href="#stories">Success Stories</a></li>
+                        </ul>
+                        <div className="nav-actions">
+                            <button className="btn btn-ghost" onClick={() => navigate('/login')}>Admin Login</button>
+                            <button className="btn btn-primary" onClick={() => navigate('/login')}>Sign In</button>
                         </div>
-                    </>
-                ) : (
-                    <div style={{ background: '#fff', borderRadius: 16, padding: 36, width: '100%', maxWidth: 420, boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)' }}>
-                        <button onClick={() => { setMode(null); setError(''); }} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 600, marginBottom: 20, cursor: 'pointer', fontSize: '0.875rem' }}>← Back</button>
-                        <div style={{ fontSize: '2rem', marginBottom: 8 }}>{mode === 'admin' ? '🏛️' : '🎓'}</div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 4 }}>{mode === 'admin' ? 'Placement Cell Login' : 'Student Login'}</h2>
-                        <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: 24 }}>Enter your credentials to continue</p>
+                    </nav>
+                </div>
+            </header>
 
-                        {error && <div className="alert alert-error mb-3">{error}</div>}
-
-                        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                            <div className="form-group">
-                                <label className="form-label">Email Address</label>
-                                <input className="form-control" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" required />
+            {/* Hero Section */}
+            <section className="hero-section">
+                <div className="landing-container">
+                    <div className="hero-grid">
+                        <div className="hero-content">
+                            <div className="hero-badge">
+                                📈 Over 500+ Companies Hiring Now
                             </div>
-                            <div className="form-group">
-                                <label className="form-label">Password</label>
-                                <input className="form-control" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
-                            </div>
-                            <button className="btn btn-primary w-full btn-lg" type="submit" disabled={loading}>
-                                {loading ? '⏳ Logging in...' : '🔐 Login'}
-                            </button>
-                        </form>
-
-                        {mode === 'student' && (
-                            <p style={{ marginTop: 16, textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
-                                New student?{' '}
-                                <span style={{ color: 'var(--primary)', fontWeight: 600, cursor: 'pointer' }} onClick={() => navigate('/register')}>Register here</span>
+                            <h1 className="hero-title">
+                                Your Gateway to <br />
+                                <span className="text-highlight">Career Success</span>
+                            </h1>
+                            <p className="hero-description">
+                                Bridging the gap between talented students and top-tier companies.
+                                Empowering your professional journey through seamless placements,
+                                real-world internships, and elite recruitment tools.
                             </p>
-                        )}
-                        <div style={{ marginTop: 16, padding: '10px 14px', background: 'var(--bg-page)', borderRadius: 8, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                            💡 Demo: <b>{mode === 'student' ? 'rahul@college.edu' : 'admin@placement.edu'}</b> / <b>123456</b>
+                            <div className="hero-actions">
+                                <button className="btn btn-primary btn-lg" onClick={() => navigate('/register')}>Get Started →</button>
+                                <button className="btn btn-outline btn-lg" onClick={() => navigate('/login')}>View Job Board</button>
+                            </div>
+                            <div className="hero-social-proof">
+                                <div className="avatar-group">
+                                    <div className="avatar-sm" style={{ background: '#4a5568' }}></div>
+                                    <div className="avatar-sm" style={{ background: '#ed8936' }}></div>
+                                    <div className="avatar-sm" style={{ background: '#4299e1' }}></div>
+                                    <div className="avatar-sm" style={{ background: '#2563eb' }}>+2k</div>
+                                </div>
+                                <span>Joined by 2,000+ ambitious graduates this month</span>
+                            </div>
+                        </div>
+                        <div className="hero-image-container">
+                            <div className="hero-image-wrapper">
+                                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Modern Office" className="hero-main-image" />
+                                <div className="hero-stat-card">
+                                    <div className="stat-icon">📈</div>
+                                    <div>
+                                        <div className="stat-label">PLACEMENT RATE</div>
+                                        <div className="stat-value">94% Average</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
+            </section>
+
+            {/* Features Info Bar */}
+            <section className="features-section" id="resources">
+                <div className="landing-container">
+                    <div className="section-header">
+                        <span className="section-badge">FEATURES & BENEFITS</span>
+                        <h2 className="section-title">Everything you need to land your dream job</h2>
+                    </div>
+                    <div className="features-grid">
+                        <div className="feature-card">
+                            <div className="feature-icon">👤</div>
+                            <h3>Student Profiles</h3>
+                            <p>All-powered resume building and detailed skill portfolios that catch the eye of top tech recruiters.</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-icon">💼</div>
+                            <h3>Job Listings</h3>
+                            <p>Daily updates with exclusive listings for internships, fellowships, and permanent career roles across all sectors.</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-icon">📊</div>
+                            <h3>HR Dashboard</h3>
+                            <p>Streamlined tools for recruiters to filter talent, manage applicant pools, and post bulk openings in seconds.</p>
+                        </div>
+                        <div className="feature-card">
+                            <div className="feature-icon">📅</div>
+                            <h3>Auto-Scheduling</h3>
+                            <p>Automatic interview coordination that syncs with your calendar, ensuring you never miss a career opportunity.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Dual Sections */}
+            <section className="dual-section">
+                <div className="landing-container">
+                    <div className="dual-grid">
+                        <div className="path-card path-dark" id="students">
+                            <div className="path-icon">🎓</div>
+                            <h2>For Students</h2>
+                            <p>Take the next step in your professional journey. Access mock interviews, career roadmap tools, and direct connections to hiring managers.</p>
+                            <ul className="path-list">
+                                <li><span>✓</span> Personalized Job Matches</li>
+                                <li><span>✓</span> Skill Assessment Badges</li>
+                                <li><span>✓</span> One-Click Applications</li>
+                            </ul>
+                            <button className="btn btn-primary" onClick={() => navigate('/register')}>Get Placed Now</button>
+                        </div>
+                        <div className="path-card path-light" id="recruiters">
+                            <div className="path-icon">💼</div>
+                            <h2>For Recruiters</h2>
+                            <p>Discover the next generation of industry leaders. Our platform provides high-quality candidates vetted by academic excellence.</p>
+                            <ul className="path-list">
+                                <li><span>✓</span> Vetted Student Records</li>
+                                <li><span>✓</span> Bulk Hiring Tools</li>
+                                <li><span>✓</span> Direct Campus Engagement</li>
+                            </ul>
+                            <button className="btn btn-outline" onClick={() => navigate('/login')}>Hire Best Talent</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <section className="cta-section">
+                <div className="landing-container">
+                    <div className="cta-card">
+                        <h2>Ready to kickstart your career?</h2>
+                        <p>Join thousands of students and hundreds of companies already using our platform. Your dream role is just one click away.</p>
+                        <form className="cta-form" onSubmit={(e) => e.preventDefault()}>
+                            <input type="email" placeholder="Enter your college email" className="cta-input" />
+                            <button className="btn-dark" onClick={() => navigate('/register')}>Get Started Free</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="landing-footer">
+                <div className="landing-container">
+                    <div className="footer-grid">
+                        <div className="footer-brand">
+                            <div className="landing-logo">
+                                <span className="logo-icon">🎓</span>
+                                <span className="logo-text">JobBro Portal</span>
+                            </div>
+                            <p>Connecting education with industry to build a better future for the next generation of professionals.</p>
+                        </div>
+                        <div className="footer-links">
+                            <h4>Platform</h4>
+                            <ul>
+                                <li><a href="#">Jobs</a></li>
+                                <li><a href="#">Internships</a></li>
+                                <li><a href="#">Recruiters</a></li>
+                                <li><a href="#">Dashboard</a></li>
+                            </ul>
+                        </div>
+                        <div className="footer-links">
+                            <h4>Company</h4>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Contact</a></li>
+                                <li><a href="#">Privacy</a></li>
+                                <li><a href="#">Terms</a></li>
+                            </ul>
+                        </div>
+                        <div className="footer-links">
+                            <h4>Social</h4>
+                            <ul>
+                                <li><a href="#">LinkedIn</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Instagram</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="footer-bottom">
+                        <p>© 2026 JobBro Placement Portal. All rights reserved.</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     );
 }

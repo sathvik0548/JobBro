@@ -8,11 +8,16 @@ import { addDeadlineToCalendar } from '../../utils/googleCalendar';
 
 export default function JobDetail() {
     const { id } = useParams();
-    const { jobs, user, applyToJob, hasApplied } = useApp();
+    const { jobs, user, applyToJob, hasApplied, updateStudent } = useApp();
     const navigate = useNavigate();
     const [toast, setToast] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [submitting, setSubmitting] = useState(false);
+
+    // Profile Editing States
+    const [isEditing, setIsEditing] = useState(false);
+    const [editData, setEditData] = useState({ ...user });
+
     const job = jobs.find(j => j.id === id);
 
     if (!job) return (
@@ -32,6 +37,19 @@ export default function JobDetail() {
         { label: `Department: ${job.branches.join(', ')}`, pass: job.branches.includes(user.dept) },
     ];
     const eligible = checks.every(c => c.pass);
+
+    async function handleSaveProfile() {
+        setSubmitting(true);
+        const res = await updateStudent(user.id, editData);
+        setSubmitting(false);
+        if (res.success) {
+            setIsEditing(false);
+            setToast('✅ Profile updated successfully!');
+            setTimeout(() => setToast(''), 3000);
+        } else {
+            setToast(res.error || 'Failed to update profile.');
+        }
+    }
 
     async function handleApply(formData) {
         setSubmitting(true);
@@ -175,16 +193,32 @@ export default function JobDetail() {
                 <div className="modal-backdrop">
                     <div className="modal-container">
                         <header className="modal-header">
-                            <div>
-                                <h1 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Apply to {job.company}</h1>
-                                <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{job.title} · {job.location} · {job.ctc}</p>
+                            <div className="modal-header-content">
+                                <h1>Apply to {job.company}</h1>
+                                <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 8 }}>
+                                    <span style={{ fontSize: '0.9rem', color: 'var(--modal-accent)', background: 'rgba(59, 130, 246, 0.1)', padding: '4px 12px', borderRadius: 10, fontWeight: 700 }}>{job.title}</span>
+                                    <span style={{ fontSize: '0.9rem', color: '#94a3b8' }}>•</span>
+                                    <span style={{ fontSize: '1rem', color: 'var(--modal-text)', fontWeight: 700 }}>{job.ctc}</span>
+                                </div>
                             </div>
-                            <button className="modal-close-btn" onClick={() => setShowModal(false)}>✕</button>
+                            <button className="modal-close-btn" onClick={() => setShowModal(false)} aria-label="Close">✕</button>
                         </header>
 
                         <div className="modal-body">
-                            <div className="form-info-bar">
-                                📋 <b>Application Form</b> — Fill in your details and click <b>Submit Application</b> at the bottom.
+                            {/* Eligibility Quick Bar */}
+                            <div className="eligibility-quick-bar">
+                                <span style={{ fontSize: '1.5rem' }}>✨</span>
+                                <div style={{ flex: 1 }}>
+                                    <div style={{ fontWeight: 800, fontSize: '1rem' }}>You're eligible!</div>
+                                    <div style={{ fontSize: '0.85rem', color: 'var(--modal-text-dim)' }}>Your profile satisfies all requirement benchmarks for this position.</div>
+                                </div>
+                                <div style={{ display: 'flex', gap: 8 }}>
+                                    {checks.map((c, i) => (
+                                        <div key={i} style={{ background: 'rgba(34, 197, 94, 0.1)', color: '#22c55e', padding: '4px 10px', borderRadius: 8, fontSize: '0.75rem', fontWeight: 800 }}>
+                                            ✓ {c.label.split(':')[0]}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
 
                             <form id="apply-form" onSubmit={(e) => {
@@ -197,55 +231,176 @@ export default function JobDetail() {
                                     motivation: fd.get('motivation')
                                 });
                             }}>
-                                <div className="modal-form-grid">
-                                    <div className="form-group">
-                                        <label className="modal-label">Full Name *</label>
-                                        <input className="modal-input" value={user.name} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">Student ID *</label>
-                                        <input className="modal-input" value={user.id} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">Email *</label>
-                                        <input className="modal-input" value={user.email} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">Phone Number *</label>
-                                        <input name="phone" className="modal-input" placeholder="Enter your mobile number" required />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">Department</label>
-                                        <input className="modal-input" value={user.dept} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">Year</label>
-                                        <input className="modal-input" value={user.year} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">CGPA</label>
-                                        <input className="modal-input" value={user.cgpa} disabled />
-                                    </div>
-                                    <div className="form-group">
-                                        <label className="modal-label">LinkedIn Profile</label>
-                                        <input name="linkedin" className="modal-input" placeholder="linkedin.com/in/yourname" />
+                                {/* Section 1: Profile */}
+                                <div className="form-section">
+                                    <div className="form-section-card">
+                                        <div className="form-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <span><span style={{ marginRight: 8 }}>👤</span> Professional Profile</span>
+                                            {!isEditing ? (
+                                                <button
+                                                    type="button"
+                                                    className="btn-premium-ghost"
+                                                    style={{ padding: '6px 14px', fontSize: '0.75rem', textTransform: 'none', letterSpacing: 'normal' }}
+                                                    onClick={() => {
+                                                        setEditData({ ...user });
+                                                        setIsEditing(true);
+                                                    }}
+                                                >
+                                                    Modify Details
+                                                </button>
+                                            ) : (
+                                                <div style={{ display: 'flex', gap: 10 }}>
+                                                    <button
+                                                        type="button"
+                                                        className="btn-premium-ghost"
+                                                        style={{ padding: '6px 14px', fontSize: '0.75rem', textTransform: 'none', letterSpacing: 'normal', color: '#ef4444' }}
+                                                        onClick={() => setIsEditing(false)}
+                                                    >
+                                                        Discard
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className="btn-premium-primary"
+                                                        style={{ padding: '6px 14px', fontSize: '0.75rem', borderRadius: 10 }}
+                                                        onClick={handleSaveProfile}
+                                                    >
+                                                        Save Profile
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="modal-form-grid">
+                                            <div className="form-group">
+                                                <label className="modal-label">Full Name</label>
+                                                <div className="modal-input-wrapper">
+                                                    <input
+                                                        className="modal-input"
+                                                        value={isEditing ? editData.name : user.name}
+                                                        disabled={!isEditing}
+                                                        onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+                                                        placeholder="Enter full name"
+                                                    />
+                                                    <span className="modal-input-icon">👤</span>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="modal-label">Email Address</label>
+                                                <div className="modal-input-wrapper">
+                                                    <input
+                                                        className="modal-input"
+                                                        value={isEditing ? editData.email : user.email}
+                                                        disabled={!isEditing}
+                                                        onChange={(e) => setEditData({ ...editData, email: e.target.value })}
+                                                        placeholder="email@example.com"
+                                                    />
+                                                    <span className="modal-input-icon">📧</span>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="modal-label">Contact Number *</label>
+                                                <div className="modal-input-wrapper">
+                                                    <input
+                                                        name="phone"
+                                                        className="modal-input"
+                                                        placeholder="+91 00000 00000"
+                                                        required
+                                                        defaultValue={user.phone || ""}
+                                                    />
+                                                    <span className="modal-input-icon">📱</span>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="modal-label">Academic Identity</label>
+                                                <div className="modal-input-wrapper">
+                                                    {isEditing ? (
+                                                        <div style={{ display: 'flex', gap: 8, width: '100%' }}>
+                                                            <select
+                                                                className="modal-input"
+                                                                value={editData.dept}
+                                                                onChange={(e) => setEditData({ ...editData, dept: e.target.value })}
+                                                                style={{ paddingLeft: 56, flex: 2 }}
+                                                            >
+                                                                <option value="CSE">Computer Science</option>
+                                                                <option value="ECE">Electronics</option>
+                                                                <option value="ME">Mechanical</option>
+                                                                <option value="CE">Civil</option>
+                                                            </select>
+                                                            <input
+                                                                className="modal-input"
+                                                                type="number"
+                                                                step="0.01"
+                                                                value={editData.cgpa}
+                                                                onChange={(e) => setEditData({ ...editData, cgpa: e.target.value })}
+                                                                placeholder="CGPA"
+                                                                style={{ paddingLeft: 16, flex: 1 }}
+                                                            />
+                                                        </div>
+                                                    ) : (
+                                                        <input
+                                                            className="modal-input"
+                                                            value={`${user.dept} Engineering • ${user.year}nd Year • ${user.cgpa} CGPA`}
+                                                            disabled
+                                                        />
+                                                    )}
+                                                    <span className="modal-input-icon">🎓</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="form-group" style={{ marginTop: 20 }}>
-                                    <label className="modal-label">GitHub / Portfolio URL</label>
-                                    <input name="github" className="modal-input" placeholder="github.com/yourname" />
+
+                                {/* Section 2: Prof Links */}
+                                <div className="form-section">
+                                    <div className="form-section-card">
+                                        <div className="form-section-title"><span><span style={{ marginRight: 8 }}>🔗</span> Professional Presence</span></div>
+                                        <div className="modal-form-grid">
+                                            <div className="form-group">
+                                                <label className="modal-label">LinkedIn URL</label>
+                                                <div className="modal-input-wrapper">
+                                                    <input name="linkedin" className="modal-input" placeholder="linkedin.com/in/username" />
+                                                    <span className="modal-input-icon">🌐</span>
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="modal-label">Portfolio / GitHub</label>
+                                                <div className="modal-input-wrapper">
+                                                    <input name="github" className="modal-input" placeholder="github.com/username" />
+                                                    <span className="modal-input-icon">💻</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="form-group" style={{ marginTop: 20 }}>
-                                    <label className="modal-label">Why do you want to join {job.company}? *</label>
-                                    <textarea name="motivation" className="modal-input modal-textarea" placeholder="Tell us about your interests and why you are a good fit..." required></textarea>
+
+                                {/* Section 3: Statement */}
+                                <div className="form-section" style={{ marginBottom: 0 }}>
+                                    <div className="form-section-card">
+                                        <div className="form-section-title"><span><span style={{ marginRight: 8 }}>📝</span> Statement of Purpose</span></div>
+                                        <div className="form-group">
+                                            <label className="modal-label">Why are you a perfect fit for {job.company}? *</label>
+                                            <textarea
+                                                name="motivation"
+                                                className="modal-input modal-textarea"
+                                                placeholder="Write a compelling motivation letter... (Minimum 50 words recommended)"
+                                                required
+                                            ></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
 
                         <footer className="modal-footer">
-                            <button className="btn btn-ghost" onClick={() => setShowModal(false)} style={{ color: '#fff' }}>✕ Cancel</button>
-                            <button className="btn btn-primary" type="submit" form="apply-form" disabled={submitting}>
-                                {submitting ? '⏳ Submitting...' : '🚀 Submit Application'}
+                            <button className="btn-premium-ghost" onClick={() => setShowModal(false)}>Cancel</button>
+                            <button
+                                className="btn-premium-primary"
+                                type="submit"
+                                form="apply-form"
+                                disabled={submitting}
+                            >
+                                {submitting ? '⏳ Processing...' : 'Submit Application'}
+                                {!submitting && <span>🚀</span>}
                             </button>
                         </footer>
                     </div>

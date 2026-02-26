@@ -1,396 +1,396 @@
 {
-  "users": [
-    {
-      "id": "a1",
-      "role": "admin",
-      "email": "admin@placement.edu",
-      "password": "123456",
-      "name": "Dr. Priya Sharma"
-    },
-    {
-      "id": "s1",
-      "role": "student",
-      "email": "rahul@college.edu",
-      "password": "123456",
-      "name": "Rahul Sharma",
-      "dept": "CSE",
-      "year": "4th",
-      "cgpa": 8.2,
-      "skills": [
-        "Python",
-        "React",
-        "SQL"
-      ],
-      "resume": "https://drive.google.com/resume-rahul"
-    },
-    {
-      "id": "s2",
-      "role": "student",
-      "email": "ananya@college.edu",
-      "password": "123456",
-      "name": "Ananya Patel",
-      "dept": "ECE",
-      "year": "3rd",
-      "cgpa": 7.8,
-      "skills": [
-        "Java",
-        "C++",
-        "VLSI"
-      ],
-      "resume": ""
-    },
-    {
-      "id": "s3",
-      "role": "student",
-      "email": "arjun@college.edu",
-      "password": "123456",
-      "name": "Arjun Mehta",
-      "dept": "ME",
-      "year": "4th",
-      "cgpa": 7.1,
-      "skills": [
-        "AutoCAD",
-        "MATLAB"
-      ],
-      "resume": ""
-    },
-    {
-      "id": "s1772069694410",
-      "role": "student",
-      "name": "sathvik",
-      "email": "badamsathvik@gmail.com",
-      "password": "1234",
-      "dept": "CSE",
-      "year": "2nd",
-      "cgpa": 8.5,
-      "skills": [
-        "c",
-        "python",
-        "Java"
-      ],
-      "resume": ""
-    }
-  ],
-  "jobs": [
-    {
-      "id": "j1",
-      "title": "Software Engineer — Full Stack",
-      "company": "Google",
-      "location": "Bangalore / Remote",
-      "ctc": "18–22 LPA",
-      "type": "Full-time",
-      "description": "Join Google's engineering team to build scalable web applications and APIs that serve billions of users worldwide. You will work across the full stack using modern technologies.",
-      "requirements": [
-        "Strong proficiency in Python, JavaScript, or Go",
-        "Experience with React or Angular frontend frameworks",
-        "Understanding of distributed systems and cloud architecture",
-        "Excellent problem-solving and communication skills"
-      ],
-      "minCGPA": 7.5,
-      "branches": [
-        "CSE",
-        "ECE"
-      ],
-      "skills": [
-        "Python",
-        "React",
-        "SQL",
-        "System Design"
-      ],
-      "deadline": "2026-03-15",
-      "status": "Open",
-      "postedDate": "2026-01-10"
-    },
-    {
-      "id": "j2",
-      "title": "Software Development Engineer",
-      "company": "Amazon",
-      "location": "Hyderabad",
-      "ctc": "20–26 LPA",
-      "type": "Full-time",
-      "description": "Design, build, and maintain distributed services that power Amazon's global e-commerce platform. Work with cross-functional teams on high-impact projects.",
-      "requirements": [
-        "Proficiency in Java or C++",
-        "Knowledge of data structures and algorithms",
-        "Experience with AWS services is a plus",
-        "Strong analytical thinking"
-      ],
-      "minCGPA": 7,
-      "branches": [
-        "CSE",
-        "ECE",
-        "ME"
-      ],
-      "skills": [
-        "Java",
-        "AWS",
-        "Data Structures"
-      ],
-      "deadline": "2026-03-10",
-      "status": "Open",
-      "postedDate": "2026-01-12"
-    },
-    {
-      "id": "j3",
-      "title": "Systems Engineer",
-      "company": "Infosys",
-      "location": "Pune / Chennai",
-      "ctc": "3.6–5 LPA",
-      "type": "Full-time",
-      "description": "Be part of Infosys's large-scale enterprise transformation projects. You'll work on system analysis, design, development, and testing of client solutions.",
-      "requirements": [
-        "Basic programming knowledge (Java, Python, or C)",
-        "Good communication and team collaboration skills",
-        "Willingness to learn new technologies"
-      ],
-      "minCGPA": 6.5,
-      "branches": [
-        "CSE",
-        "ECE",
-        "ME",
-        "Civil"
-      ],
-      "skills": [
-        "Java",
-        "Communication",
-        "Problem Solving"
-      ],
-      "deadline": "2025-02-28",
-      "status": "Open",
-      "postedDate": "2025-01-05"
-    },
-    {
-      "id": "j4",
-      "title": "Software Developer",
-      "company": "Microsoft",
-      "location": "Noida",
-      "ctc": "15–20 LPA",
-      "type": "Full-time",
-      "description": "Build powerful developer tools and cloud services used by millions of developers globally. Join a diverse and inclusive engineering team.",
-      "requirements": [
-        "Strong grasp of OOP concepts",
-        "Experience with .NET or JavaScript ecosystems",
-        "Analytical thinking and debugging skills"
-      ],
-      "minCGPA": 7.5,
-      "branches": [
-        "CSE"
-      ],
-      "skills": [
-        ".NET",
-        "JavaScript",
-        "Azure"
-      ],
-      "deadline": "2025-03-20",
-      "status": "Open",
-      "postedDate": "2025-01-15"
-    },
-    {
-      "id": "j5",
-      "title": "Digital Analyst",
-      "company": "TCS",
-      "location": "Mumbai",
-      "ctc": "7–9 LPA",
-      "type": "Full-time",
-      "description": "TCS Digital seeks sharp analytical minds to work on data-driven digital transformation projects for Fortune 500 clients.",
-      "requirements": [
-        "Proficiency in SQL and basic analytics tools",
-        "Good presentation and communication skills",
-        "Eagerness to work in a fast-paced environment"
-      ],
-      "minCGPA": 6,
-      "branches": [
-        "CSE",
-        "ECE",
-        "ME",
-        "Civil",
-        "MBA"
-      ],
-      "skills": [
-        "SQL",
-        "Excel",
-        "Data Analysis"
-      ],
-      "deadline": "2025-02-20",
-      "status": "Open",
-      "postedDate": "2024-12-20"
-    },
-    {
-      "id": "j6",
-      "title": "Machine Learning Intern",
-      "company": "Wipro",
-      "location": "Bengaluru",
-      "ctc": "40k/month",
-      "type": "Internship",
-      "description": "Work on real-world ML models for NLP and computer vision applications within Wipro's AI lab. 6-month internship with PPO possibility.",
-      "requirements": [
-        "Knowledge of Python and ML frameworks (TensorFlow / PyTorch)",
-        "Familiarity with statistical concepts",
-        "Projects or coursework in AI/ML preferred"
-      ],
-      "minCGPA": 7,
-      "branches": [
-        "CSE",
-        "ECE"
-      ],
-      "skills": [
-        "Python",
-        "TensorFlow",
-        "Machine Learning"
-      ],
-      "deadline": "2025-03-01",
-      "status": "Open",
-      "postedDate": "2025-01-18"
-    },
-    {
-      "id": "j7",
-      "title": "Business Analyst",
-      "company": "Accenture",
-      "location": "Gurugram",
-      "ctc": "8–11 LPA",
-      "type": "Full-time",
-      "description": "Drive business insights, process optimization, and digital strategy for global clients across banking, retail, and healthcare domains.",
-      "requirements": [
-        "Strong analytical and problem-solving mindset",
-        "Excellent verbal and written communication",
-        "Interest in consulting and strategy"
-      ],
-      "minCGPA": 6.5,
-      "branches": [
-        "CSE",
-        "MBA",
-        "ME",
-        "Civil"
-      ],
-      "skills": [
-        "Excel",
-        "Communication",
-        "Strategy"
-      ],
-      "deadline": "2025-03-25",
-      "status": "Open",
-      "postedDate": "2025-01-20"
-    },
-    {
-      "id": "j8",
-      "title": "Data Engineer",
-      "company": "Deloitte",
-      "location": "Hyderabad",
-      "ctc": "12–15 LPA",
-      "type": "Full-time",
-      "description": "Build and maintain robust data pipelines and analytics infrastructure for Deloitte's consulting clients across industries.",
-      "requirements": [
-        "Proficiency in SQL, Python, and big data tools",
-        "Experience with Spark, Kafka, or similar frameworks",
-        "Good understanding of data warehousing concepts"
-      ],
-      "minCGPA": 7,
-      "branches": [
-        "CSE",
-        "ECE"
-      ],
-      "skills": [
-        "SQL",
-        "Python",
-        "Spark",
-        "Data Engineering"
-      ],
-      "deadline": "2025-04-01",
-      "status": "Open",
-      "postedDate": "2025-01-22"
-    },
-    {
-      "id": "j9",
-      "title": "AI Product Manager (Live Now!)",
-      "company": "Antigravity Corp",
-      "location": "San Francisco / Remote",
-      "ctc": "25–35 LPA",
-      "type": "Full-time",
-      "description": "Lead the next generation of agentic AI systems. We are looking for a visionary Product Manager to join our growing team. This role is LIVE and actively hiring!",
-      "requirements": [
-        "3+ years of experience in AI product management",
-        "Strong understanding of LLMs and agentic workflows",
-        "Excellent leadership and stakeholder management skills"
-      ],
-      "minCGPA": 8,
-      "branches": [
-        "CSE",
-        "MBA"
-      ],
-      "skills": [
-        "AI/ML",
-        "Product Strategy",
-        "Agile"
-      ],
-      "deadline": "2026-03-30",
-      "status": "Open",
-      "postedDate": "2026-02-25",
-      "interviewDate": "2026-04-05"
-    }
-  ],
-  "applications": [
-    {
-      "id": "ap1",
-      "studentId": "s1",
-      "jobId": "j4",
-      "appliedDate": "2024-12-15",
-      "status": "Selected"
-    },
-    {
-      "id": "ap2",
-      "studentId": "s1",
-      "jobId": "j5",
-      "appliedDate": "2024-12-20",
-      "status": "Rejected"
-    },
-    {
-      "id": "ap3",
-      "studentId": "s1",
-      "jobId": "j1",
-      "appliedDate": "2025-01-10",
-      "status": "Shortlisted"
-    },
-    {
-      "id": "ap4",
-      "studentId": "s1",
-      "jobId": "j3",
-      "appliedDate": "2025-01-08",
-      "status": "Applied"
-    },
-    {
-      "id": "ap5",
-      "studentId": "s2",
-      "jobId": "j1",
-      "appliedDate": "2025-01-11",
-      "status": "Applied"
-    },
-    {
-      "id": "ap6",
-      "studentId": "s2",
-      "jobId": "j6",
-      "appliedDate": "2025-01-15",
-      "status": "Shortlisted"
-    },
-    {
-      "id": "ap7",
-      "studentId": "s3",
-      "jobId": "j3",
-      "appliedDate": "2025-01-09",
-      "status": "Applied"
-    },
-    {
-      "id": "ap8",
-      "studentId": "s3",
-      "jobId": "j7",
-      "appliedDate": "2025-01-20",
-      "status": "Applied"
-    },
-    {
-      "id": "ap1772041685841",
-      "studentId": "s1",
-      "jobId": "j2",
-      "appliedDate": "2026-02-25",
-      "status": "Applied"
-    }
-  ]
+    "users": [
+        {
+            "id": "a1",
+            "role": "admin",
+            "email": "admin@placement.edu",
+            "password": "123456",
+            "name": "Dr. Priya Sharma"
+        },
+        {
+            "id": "s1",
+            "role": "student",
+            "email": "rahul@college.edu",
+            "password": "123456",
+            "name": "Rahul Sharma",
+            "dept": "CSE",
+            "year": "4th",
+            "cgpa": 8.2,
+            "skills": [
+                "Python",
+                "React",
+                "SQL"
+            ],
+            "resume": "https://drive.google.com/resume-rahul"
+        },
+        {
+            "id": "s2",
+            "role": "student",
+            "email": "ananya@college.edu",
+            "password": "123456",
+            "name": "Ananya Patel",
+            "dept": "ECE",
+            "year": "3rd",
+            "cgpa": 7.8,
+            "skills": [
+                "Java",
+                "C++",
+                "VLSI"
+            ],
+            "resume": ""
+        },
+        {
+            "id": "s3",
+            "role": "student",
+            "email": "arjun@college.edu",
+            "password": "123456",
+            "name": "Arjun Mehta",
+            "dept": "ME",
+            "year": "4th",
+            "cgpa": 7.1,
+            "skills": [
+                "AutoCAD",
+                "MATLAB"
+            ],
+            "resume": ""
+        },
+        {
+            "id": "s1772069694410",
+            "role": "student",
+            "name": "sathvik",
+            "email": "badamsathvik@gmail.com",
+            "password": "1234",
+            "dept": "CSE",
+            "year": "2nd",
+            "cgpa": 8.5,
+            "skills": [
+                "c",
+                "python",
+                "Java"
+            ],
+            "resume": ""
+        }
+    ],
+    "jobs": [
+        {
+            "id": "j1",
+            "title": "Software Engineer — Full Stack",
+            "company": "Google",
+            "location": "Bangalore / Remote",
+            "ctc": "18–22 LPA",
+            "type": "Full-time",
+            "description": "Join Google's engineering team to build scalable web applications and APIs that serve billions of users worldwide. You will work across the full stack using modern technologies.",
+            "requirements": [
+                "Strong proficiency in Python, JavaScript, or Go",
+                "Experience with React or Angular frontend frameworks",
+                "Understanding of distributed systems and cloud architecture",
+                "Excellent problem-solving and communication skills"
+            ],
+            "minCGPA": 7.5,
+            "branches": [
+                "CSE",
+                "ECE"
+            ],
+            "skills": [
+                "Python",
+                "React",
+                "SQL",
+                "System Design"
+            ],
+            "deadline": "2026-03-15",
+            "status": "Open",
+            "postedDate": "2026-01-10"
+        },
+        {
+            "id": "j2",
+            "title": "Software Development Engineer",
+            "company": "Amazon",
+            "location": "Hyderabad",
+            "ctc": "20–26 LPA",
+            "type": "Full-time",
+            "description": "Design, build, and maintain distributed services that power Amazon's global e-commerce platform. Work with cross-functional teams on high-impact projects.",
+            "requirements": [
+                "Proficiency in Java or C++",
+                "Knowledge of data structures and algorithms",
+                "Experience with AWS services is a plus",
+                "Strong analytical thinking"
+            ],
+            "minCGPA": 7,
+            "branches": [
+                "CSE",
+                "ECE",
+                "ME"
+            ],
+            "skills": [
+                "Java",
+                "AWS",
+                "Data Structures"
+            ],
+            "deadline": "2026-03-10",
+            "status": "Open",
+            "postedDate": "2026-01-12"
+        },
+        {
+            "id": "j3",
+            "title": "Systems Engineer",
+            "company": "Infosys",
+            "location": "Pune / Chennai",
+            "ctc": "3.6–5 LPA",
+            "type": "Full-time",
+            "description": "Be part of Infosys's large-scale enterprise transformation projects. You'll work on system analysis, design, development, and testing of client solutions.",
+            "requirements": [
+                "Basic programming knowledge (Java, Python, or C)",
+                "Good communication and team collaboration skills",
+                "Willingness to learn new technologies"
+            ],
+            "minCGPA": 6.5,
+            "branches": [
+                "CSE",
+                "ECE",
+                "ME",
+                "Civil"
+            ],
+            "skills": [
+                "Java",
+                "Communication",
+                "Problem Solving"
+            ],
+            "deadline": "2026-02-28",
+            "status": "Open",
+            "postedDate": "2026-01-05"
+        },
+        {
+            "id": "j4",
+            "title": "Software Developer",
+            "company": "Microsoft",
+            "location": "Noida",
+            "ctc": "15–20 LPA",
+            "type": "Full-time",
+            "description": "Build powerful developer tools and cloud services used by millions of developers globally. Join a diverse and inclusive engineering team.",
+            "requirements": [
+                "Strong grasp of OOP concepts",
+                "Experience with .NET or JavaScript ecosystems",
+                "Analytical thinking and debugging skills"
+            ],
+            "minCGPA": 7.5,
+            "branches": [
+                "CSE"
+            ],
+            "skills": [
+                ".NET",
+                "JavaScript",
+                "Azure"
+            ],
+            "deadline": "2025-03-20",
+            "status": "Open",
+            "postedDate": "2025-01-15"
+        },
+        {
+            "id": "j5",
+            "title": "Digital Analyst",
+            "company": "TCS",
+            "location": "Mumbai",
+            "ctc": "7–9 LPA",
+            "type": "Full-time",
+            "description": "TCS Digital seeks sharp analytical minds to work on data-driven digital transformation projects for Fortune 500 clients.",
+            "requirements": [
+                "Proficiency in SQL and basic analytics tools",
+                "Good presentation and communication skills",
+                "Eagerness to work in a fast-paced environment"
+            ],
+            "minCGPA": 6,
+            "branches": [
+                "CSE",
+                "ECE",
+                "ME",
+                "Civil",
+                "MBA"
+            ],
+            "skills": [
+                "SQL",
+                "Excel",
+                "Data Analysis"
+            ],
+            "deadline": "2025-02-20",
+            "status": "Open",
+            "postedDate": "2024-12-20"
+        },
+        {
+            "id": "j6",
+            "title": "Machine Learning Intern",
+            "company": "Wipro",
+            "location": "Bengaluru",
+            "ctc": "40k/month",
+            "type": "Internship",
+            "description": "Work on real-world ML models for NLP and computer vision applications within Wipro's AI lab. 6-month internship with PPO possibility.",
+            "requirements": [
+                "Knowledge of Python and ML frameworks (TensorFlow / PyTorch)",
+                "Familiarity with statistical concepts",
+                "Projects or coursework in AI/ML preferred"
+            ],
+            "minCGPA": 7,
+            "branches": [
+                "CSE",
+                "ECE"
+            ],
+            "skills": [
+                "Python",
+                "TensorFlow",
+                "Machine Learning"
+            ],
+            "deadline": "2025-03-01",
+            "status": "Open",
+            "postedDate": "2025-01-18"
+        },
+        {
+            "id": "j7",
+            "title": "Business Analyst",
+            "company": "Accenture",
+            "location": "Gurugram",
+            "ctc": "8–11 LPA",
+            "type": "Full-time",
+            "description": "Drive business insights, process optimization, and digital strategy for global clients across banking, retail, and healthcare domains.",
+            "requirements": [
+                "Strong analytical and problem-solving mindset",
+                "Excellent verbal and written communication",
+                "Interest in consulting and strategy"
+            ],
+            "minCGPA": 6.5,
+            "branches": [
+                "CSE",
+                "MBA",
+                "ME",
+                "Civil"
+            ],
+            "skills": [
+                "Excel",
+                "Communication",
+                "Strategy"
+            ],
+            "deadline": "2025-03-25",
+            "status": "Open",
+            "postedDate": "2025-01-20"
+        },
+        {
+            "id": "j8",
+            "title": "Data Engineer",
+            "company": "Deloitte",
+            "location": "Hyderabad",
+            "ctc": "12–15 LPA",
+            "type": "Full-time",
+            "description": "Build and maintain robust data pipelines and analytics infrastructure for Deloitte's consulting clients across industries.",
+            "requirements": [
+                "Proficiency in SQL, Python, and big data tools",
+                "Experience with Spark, Kafka, or similar frameworks",
+                "Good understanding of data warehousing concepts"
+            ],
+            "minCGPA": 7,
+            "branches": [
+                "CSE",
+                "ECE"
+            ],
+            "skills": [
+                "SQL",
+                "Python",
+                "Spark",
+                "Data Engineering"
+            ],
+            "deadline": "2025-04-01",
+            "status": "Open",
+            "postedDate": "2025-01-22"
+        },
+        {
+            "id": "j9",
+            "title": "AI Product Manager (Live Now!)",
+            "company": "Antigravity Corp",
+            "location": "San Francisco / Remote",
+            "ctc": "25–35 LPA",
+            "type": "Full-time",
+            "description": "Lead the next generation of agentic AI systems. We are looking for a visionary Product Manager to join our growing team. This role is LIVE and actively hiring!",
+            "requirements": [
+                "3+ years of experience in AI product management",
+                "Strong understanding of LLMs and agentic workflows",
+                "Excellent leadership and stakeholder management skills"
+            ],
+            "minCGPA": 8,
+            "branches": [
+                "CSE",
+                "MBA"
+            ],
+            "skills": [
+                "AI/ML",
+                "Product Strategy",
+                "Agile"
+            ],
+            "deadline": "2026-03-30",
+            "status": "Open",
+            "postedDate": "2026-02-25",
+            "interviewDate": "2026-04-05"
+        }
+    ],
+    "applications": [
+        {
+            "id": "ap1",
+            "studentId": "s1",
+            "jobId": "j4",
+            "appliedDate": "2024-12-15",
+            "status": "Selected"
+        },
+        {
+            "id": "ap2",
+            "studentId": "s1",
+            "jobId": "j5",
+            "appliedDate": "2024-12-20",
+            "status": "Rejected"
+        },
+        {
+            "id": "ap3",
+            "studentId": "s1",
+            "jobId": "j1",
+            "appliedDate": "2025-01-10",
+            "status": "Shortlisted"
+        },
+        {
+            "id": "ap4",
+            "studentId": "s1",
+            "jobId": "j3",
+            "appliedDate": "2025-01-08",
+            "status": "Applied"
+        },
+        {
+            "id": "ap5",
+            "studentId": "s2",
+            "jobId": "j1",
+            "appliedDate": "2025-01-11",
+            "status": "Applied"
+        },
+        {
+            "id": "ap6",
+            "studentId": "s2",
+            "jobId": "j6",
+            "appliedDate": "2025-01-15",
+            "status": "Shortlisted"
+        },
+        {
+            "id": "ap7",
+            "studentId": "s3",
+            "jobId": "j3",
+            "appliedDate": "2025-01-09",
+            "status": "Applied"
+        },
+        {
+            "id": "ap8",
+            "studentId": "s3",
+            "jobId": "j7",
+            "appliedDate": "2025-01-20",
+            "status": "Applied"
+        },
+        {
+            "id": "ap1772041685841",
+            "studentId": "s1",
+            "jobId": "j2",
+            "appliedDate": "2026-02-25",
+            "status": "Applied"
+        }
+    ]
 }
