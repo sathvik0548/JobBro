@@ -18,7 +18,10 @@ export default function StudentProfile() {
         year: user.year,
         cgpa: user.cgpa,
         phone: user.phone || '',
-        skills: (user.skills || []).join(', ')
+        skills: (user.skills || []).join(', '),
+        github: user.github || '',
+        linkedin: user.linkedin || '',
+        certifications: (user.certifications || []).join('\n')
     });
 
     const handleAvatarUpload = async (e) => {
@@ -79,7 +82,8 @@ export default function StudentProfile() {
         const updates = {
             ...editData,
             cgpa: cgpaVal,
-            skills: editData.skills.split(',').map(s => s.trim()).filter(s => s !== '')
+            skills: editData.skills.split(',').map(s => s.trim()).filter(s => s !== ''),
+            certifications: editData.certifications.split('\n').map(c => c.trim()).filter(c => c !== '')
         };
 
         const res = await updateUser(user.id, updates);
@@ -131,7 +135,10 @@ export default function StudentProfile() {
                                 year: user.year,
                                 cgpa: user.cgpa,
                                 phone: user.phone || '',
-                                skills: (user.skills || []).join(', ')
+                                skills: (user.skills || []).join(', '),
+                                github: user.github || '',
+                                linkedin: user.linkedin || '',
+                                certifications: (user.certifications || []).join('\n')
                             });
                             setShowEditModal(true);
                         }}>✏️ Edit Profile</button>
@@ -179,6 +186,21 @@ export default function StudentProfile() {
                                     <span style={{ fontSize: '0.8rem', color: 'var(--primary)' }}>CGPA</span>
                                     <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--primary)' }}>{user.cgpa}</span>
                                 </div>
+
+                                {(user.github || user.linkedin) && (
+                                    <div style={{ display: 'flex', gap: 10, marginTop: 4 }}>
+                                        {user.github && (
+                                            <a href={user.github} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ padding: '8px', flex: 1, textDecoration: 'none' }} title="GitHub">
+                                                🖥️ GitHub
+                                            </a>
+                                        )}
+                                        {user.linkedin && (
+                                            <a href={user.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ padding: '8px', flex: 1, textDecoration: 'none', color: '#0077b5' }} title="LinkedIn">
+                                                🔗 LinkedIn
+                                            </a>
+                                        )}
+                                    </div>
+                                )}
                                 <button className="btn btn-danger w-full mt-3" onClick={() => { logout(); navigate('/'); }} style={{ justifyContent: 'center' }}>
                                     🚪 Log Out
                                 </button>
@@ -245,6 +267,19 @@ export default function StudentProfile() {
                                         )}
                                     </div>
                                 )}
+                            </div>
+
+                            <div className="card" style={{ padding: 24 }}>
+                                <h3 style={{ fontWeight: 700, marginBottom: 16 }}>📜 Certifications</h3>
+                                <div style={{ display: 'grid', gap: 12 }}>
+                                    {(user.certifications || []).map((cert, i) => (
+                                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: 12, background: 'var(--bg-page)', borderRadius: 8, borderLeft: '3px solid var(--primary)' }}>
+                                            <span style={{ fontSize: '1.2rem' }}>🏅</span>
+                                            <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>{cert}</span>
+                                        </div>
+                                    ))}
+                                    {(!user.certifications || user.certifications.length === 0) && <p className="text-muted text-sm">No certifications listed.</p>}
+                                </div>
                             </div>
 
                             <div className="card" style={{ padding: 24 }}>
@@ -335,6 +370,36 @@ export default function StudentProfile() {
                                         value={editData.phone}
                                         onChange={e => setEditData({ ...editData, phone: e.target.value })}
                                         placeholder="Enter your mobile number"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">GitHub URL</label>
+                                    <input
+                                        className="form-control"
+                                        type="url"
+                                        value={editData.github}
+                                        onChange={e => setEditData({ ...editData, github: e.target.value })}
+                                        placeholder="https://github.com/yourprofile"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">LinkedIn URL</label>
+                                    <input
+                                        className="form-control"
+                                        type="url"
+                                        value={editData.linkedin}
+                                        onChange={e => setEditData({ ...editData, linkedin: e.target.value })}
+                                        placeholder="https://linkedin.com/in/yourprofile"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Certifications (one per line)</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows="3"
+                                        value={editData.certifications}
+                                        onChange={e => setEditData({ ...editData, certifications: e.target.value })}
+                                        placeholder="AWS Certified Solutions Architect&#10;Google Data Analytics Professional Certificate..."
                                     />
                                 </div>
                                 <div className="form-group">

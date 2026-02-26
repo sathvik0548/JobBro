@@ -21,7 +21,13 @@
                 "React",
                 "SQL"
             ],
-            "resume": "https://drive.google.com/resume-rahul"
+            "resume": "https://drive.google.com/resume-rahul",
+            "github": "https://github.com/rahul-codes",
+            "linkedin": "https://linkedin.com/in/rahul-sharma-profile",
+            "certifications": [
+                "AWS Certified Solutions Architect",
+                "Google Data Analytics"
+            ]
         },
         {
             "id": "s2",

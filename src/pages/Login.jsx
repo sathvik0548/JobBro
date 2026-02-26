@@ -47,12 +47,7 @@ export default function Login() {
                             <div className="auth-card-desc">Browse jobs, apply to opportunities, and track your status</div>
                             <button className="btn btn-primary w-full">Enter as Student</button>
                         </div>
-                        <div className="auth-card" onClick={() => { setMode('admin'); }}>
-                            <div className="auth-card-icon">🏛️</div>
-                            <div className="auth-card-title">Placement Cell</div>
-                            <div className="auth-card-desc">Post jobs, manage applicants, and update statuses</div>
-                            <button className="btn btn-outline w-full">Enter as Admin</button>
-                        </div>
+
                     </div>
                 ) : (
                     <div style={{ background: '#fff', borderRadius: 16, padding: 36, width: '100%', maxWidth: 420, boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)' }}>
