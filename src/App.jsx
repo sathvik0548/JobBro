@@ -21,6 +21,7 @@ import ManageJobs from './pages/admin/ManageJobs';
 import ManageApplicants from './pages/admin/ManageApplicants';
 import DatabaseConsole from './pages/admin/DatabaseConsole';
 import AdminProfile from './pages/admin/AdminProfile';
+import Analytics from './pages/admin/Analytics';
 
 function ProtectedRoute({ children, role }) {
     const { user } = useApp();
@@ -52,6 +53,7 @@ function AppRoutes() {
             <Route path="/admin/post-job" element={<ProtectedRoute role="admin"><PostJob /></ProtectedRoute>} />
             <Route path="/admin/jobs" element={<ProtectedRoute role="admin"><ManageJobs /></ProtectedRoute>} />
             <Route path="/admin/applications" element={<ProtectedRoute role="admin"><ManageApplicants /></ProtectedRoute>} />
+            <Route path="/admin/analytics" element={<ProtectedRoute role="admin"><Analytics /></ProtectedRoute>} />
             <Route path="/admin/database" element={<ProtectedRoute role="admin"><DatabaseConsole /></ProtectedRoute>} />
             <Route path="/admin/profile" element={<ProtectedRoute role="admin"><AdminProfile /></ProtectedRoute>} />
 

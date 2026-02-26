@@ -1834,3 +1834,513 @@ ul {
   background: var(--primary);
   border-radius: 50%;
 }
+
+/* ---- Admin Analytics Dark Theme ---- */
+.analytics-page-dark {
+  background-color: #0b0e11;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.analytics-page-dark .sidebar {
+  background: #111418;
+  border-right: 1px solid #222;
+}
+
+.analytics-page-dark .sidebar-logo-text,
+.analytics-page-dark .sidebar-nav-item,
+.analytics-page-dark .sidebar-logo-sub {
+  color: #e5e7eb;
+}
+
+.analytics-page-dark .sidebar-nav-item:hover {
+  background: #1a1e23;
+}
+
+.analytics-page-dark .sidebar-nav-item.active {
+  background: #1d4ed81a;
+  color: #3b82f6;
+}
+
+.analytics-header {
+  padding: 32px 0 24px;
+  text-align: center;
+}
+
+.analytics-title-main {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.analytics-body {
+  padding: 0 40px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.analytics-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.analytics-card-dark {
+  background: #111418;
+  border-radius: 20px;
+  border: 1px solid #222;
+  padding: 32px;
+}
+
+.card-title-dark {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+/* Department Progress Bars */
+.dept-list-dark {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dept-info-dark {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.dept-name-dark {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.dept-rate-dark {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.dept-progress-bg-dark {
+  height: 8px;
+  background: #1a1e23;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dept-progress-bar-dark {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 4px;
+}
+
+.dept-subtext-dark {
+  font-size: 0.72rem;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+/* Recruiter List */
+.recruiter-list-dark {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.recruiter-item-dark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recruiter-info-dark {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recruiter-name-dark {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.recruiter-count-dark {
+  font-weight: 700;
+  color: #fff;
+}
+
+.recruiter-progress-bg-dark {
+  height: 6px;
+  background: #1a1e23;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.recruiter-progress-bar-dark {
+  height: 100%;
+}
+
+.recruiter-status-dark {
+  font-size: 0.72rem;
+  color: #4b5563;
+}
+
+/* Key Metrics Section */
+.analytics-metrics-section {
+  background: #111418;
+  border-radius: 20px;
+  border: 1px solid #222;
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.section-title-dark {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.metrics-grid-dark {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-card-dark {
+  background: #1a1e23;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #2d2d2d1a;
+}
+
+.metric-icon-dark {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+.metric-value-dark {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.metric-label-dark {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.metric-sub-dark {
+  font-size: 0.72rem;
+  color: #4b5563;
+}
+
+/* Breakdown Section */
+.analytics-breakdown-section {
+  background: #111418;
+  border-radius: 20px;
+  border: 1px solid #222;
+  padding: 32px;
+}
+
+.breakdown-grid-dark {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.breakdown-item-dark {
+  flex: 1;
+  text-align: center;
+}
+
+.breakdown-value-dark {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.breakdown-label-dark {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.breakdown-progress-bg-dark {
+  height: 4px;
+  background: #1a1e23;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.breakdown-progress-bar-dark {
+  height: 100%;
+}
+
+.breakdown-percent-dark {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+/* Colors */
+.color-green { color: #10b981; }
+.color-blue { color: #3b82f6; }
+.color-orange { color: #f59e0b; }
+.color-cyan { color: #06b6d4; }
+.color-red { color: #ef4444; }
+
+.bg-green { background: #10b981; }
+.bg-blue { background: #3b82f6; }
+.bg-orange { background: #f59e0b; }
+.bg-cyan { background: #06b6d4; }
+.bg-red { background: #ef4444; }
+
+.analytics-page-dark .sidebar-logo-text {
+  color: #fff !important;
+}
+
+/* ---- Admin Analytics Light Theme ---- */
+.analytics-page-light {
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+.analytics-page-light .sidebar {
+    background: #fff;
+    border-right: 1px solid var(--border);
+}
+
+.analytics-page-light .sidebar-logo-text {
+    color: var(--primary) !important;
+}
+
+.analytics-page-light .sidebar-nav-item {
+    color: var(--text-secondary);
+}
+
+.analytics-page-light .sidebar-nav-item.active {
+    background: #1d4ed81a;
+    color: var(--primary);
+}
+
+.analytics-page-light .analytics-header .analytics-title-main {
+    color: var(--text-primary);
+}
+
+.analytics-card-light {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.card-title-light {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+/* Department Progress Bars */
+.dept-list-light {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dept-info-light {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.dept-name-light {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.dept-rate-light {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.dept-progress-bg-light {
+    height: 8px;
+    background: var(--bg-page);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dept-progress-bar-light {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+.dept-subtext-light {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+/* Recruiter List */
+.recruiter-list-light {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.recruiter-item-light {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.recruiter-info-light {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recruiter-name-light {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.recruiter-count-light {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.recruiter-progress-bg-light {
+    height: 6px;
+    background: var(--bg-page);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.recruiter-progress-bar-light {
+    height: 100%;
+}
+
+.recruiter-status-light {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* Key Metrics Section */
+.analytics-metrics-section {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.section-title-light {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.metrics-grid-light {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.metric-card-light {
+    background: var(--bg-page);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid var(--border);
+}
+
+.metric-icon-light {
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.metric-value-light {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin-bottom: 4px;
+}
+
+.metric-label-light {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.metric-sub-light {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* Breakdown Section */
+.analytics-breakdown-section {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+}
+
+.breakdown-grid-light {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 20px;
+}
+
+.breakdown-item-light {
+    flex: 1;
+    text-align: center;
+}
+
+.breakdown-value-light {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.breakdown-label-light {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+}
+
+.breakdown-progress-bg-light {
+    height: 4px;
+    background: var(--bg-page);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.breakdown-progress-bar-light {
+    height: 100%;
+}
+
+.breakdown-percent-light {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}

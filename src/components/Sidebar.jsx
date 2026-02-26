@@ -14,6 +14,7 @@ const ADMIN_NAV = [
     { icon: '➕', label: 'Post Job', path: '/admin/post-job' },
     { icon: '💼', label: 'Manage Jobs', path: '/admin/jobs' },
     { icon: '📋', label: 'Applications', path: '/admin/applications' },
+    { icon: '📈', label: 'Analytics', path: '/admin/analytics' },
     { icon: '🗄️', label: 'Database Console', path: '/admin/database' },
 ];
 
