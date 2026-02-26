@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../context/AppContext';
 import Sidebar from '../../components/Sidebar';
-import { useNavigate } from 'react-router-dom';
+import { DEPARTMENTS } from '../../data/mockData';
 
 export default function StudentProfile() {
     const { user, updateUser, logout } = useApp();
@@ -298,11 +299,10 @@ export default function StudentProfile() {
                                             value={editData.dept}
                                             onChange={e => setEditData({ ...editData, dept: e.target.value })}
                                         >
-                                            <option value="CSE">Computer Science</option>
-                                            <option value="ECE">Electronics</option>
-                                            <option value="ME">Mechanical</option>
-                                            <option value="Civil">Civil</option>
-                                            <option value="EE">Electrical</option>
+                                            <option value="">Select Department</option>
+                                            {DEPARTMENTS.map(d => (
+                                                <option key={d} value={d}>{d}</option>
+                                            ))}
                                         </select>
                                     </div>
                                     <div className="form-group">

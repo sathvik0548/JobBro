@@ -95,6 +95,16 @@ export function AppProvider({ children }) {
 
         const newDb = { ...db, applications: [...db.applications, newApp] };
         saveDb(newDb);
+
+        // Add notification for the student
+        const job = db.jobs.find(j => j.id === jobId);
+        addNotification({
+            studentId: user.id,
+            type: 'APPLICATION_SENT',
+            title: `Your application for ${job?.title} at ${job?.company} was submitted! 🚀`,
+            message: 'You can track its status in your dashboard.'
+        });
+
         return { success: true };
     }
 
@@ -107,7 +117,21 @@ export function AppProvider({ children }) {
 
     async function addJob(jobData) {
         const newJob = { id: 'j' + Date.now(), ...jobData, postedDate: new Date().toISOString().split('T')[0] };
-        saveDb({ ...db, jobs: [newJob, ...db.jobs] });
+        const newDb = { ...db, jobs: [newJob, ...db.jobs] };
+        saveDb(newDb);
+
+        // Notify all relevant students (matching branches)
+        const eligibleStudents = (db.users || []).filter(u => u.role === 'student' && jobData.branches.includes(u.dept));
+        eligibleStudents.forEach(s => {
+            addNotification({
+                studentId: s.id,
+                type: 'NEW_JOB',
+                title: `New Job: ${newJob.title} at ${newJob.company}`,
+                message: `Deadline: ${newJob.deadline}. Check requirements and apply!`,
+                date: new Date().toISOString()
+            });
+        });
+
         return newJob;
     }
 

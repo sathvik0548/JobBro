@@ -11,10 +11,7 @@ export default function Login() {
     const { login } = useApp();
     const navigate = useNavigate();
 
-    function fillDemo(role) {
-        if (role === 'student') { setEmail('rahul@college.edu'); setPassword('123456'); }
-        else { setEmail('admin@placement.edu'); setPassword('123456'); }
-    }
+
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -44,13 +41,13 @@ export default function Login() {
                 )}
                 {!mode ? (
                     <div className="auth-cards">
-                        <div className="auth-card" onClick={() => { setMode('student'); fillDemo('student'); }}>
+                        <div className="auth-card" onClick={() => { setMode('student'); }}>
                             <div className="auth-card-icon">🎓</div>
                             <div className="auth-card-title">Student Login</div>
                             <div className="auth-card-desc">Browse jobs, apply to opportunities, and track your status</div>
                             <button className="btn btn-primary w-full">Enter as Student</button>
                         </div>
-                        <div className="auth-card" onClick={() => { setMode('admin'); fillDemo('admin'); }}>
+                        <div className="auth-card" onClick={() => { setMode('admin'); }}>
                             <div className="auth-card-icon">🏛️</div>
                             <div className="auth-card-title">Placement Cell</div>
                             <div className="auth-card-desc">Post jobs, manage applicants, and update statuses</div>
@@ -87,7 +84,7 @@ export default function Login() {
                             </p>
                         )}
                         <div style={{ marginTop: 16, padding: '10px 14px', background: 'var(--bg-page)', borderRadius: 8, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                            💡 Demo: <b>{mode === 'student' ? 'rahul@college.edu' : 'admin@placement.edu'}</b> / <b>123456</b>
+                            💡 Please use your college-issued credentials to sign in.
                         </div>
                     </div>
                 )}
