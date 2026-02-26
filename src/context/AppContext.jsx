@@ -122,13 +122,13 @@ export function AppProvider({ children }) {
         saveDb({ ...db, jobs: newJobs, applications: newApps });
     }
 
-    async function updateStudent(studentId, updates) {
-        const newUsers = db.users.map(u => u.id === studentId ? { ...u, ...updates } : u);
+    async function updateUser(userId, updates) {
+        const newUsers = db.users.map(u => u.id === userId ? { ...u, ...updates } : u);
         saveDb({ ...db, users: newUsers });
 
         // Update current session user if they updated their own profile
-        if (user?.id === studentId) {
-            const updatedUser = newUsers.find(u => u.id === studentId);
+        if (user?.id === userId) {
+            const updatedUser = newUsers.find(u => u.id === userId);
             const sessionUser = { ...updatedUser };
             delete sessionUser.password;
             setUser(sessionUser);
@@ -176,7 +176,7 @@ export function AppProvider({ children }) {
             login, logout, register,
             applyToJob, updateApplicationStatus,
             addJob, updateJob, deleteJob,
-            updateStudent,
+            updateUser,
             markAllNotificationsAsRead, addNotification,
             getStudentApplications, getJobApplicants, hasApplied,
         }}>

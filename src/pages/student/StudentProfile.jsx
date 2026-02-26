@@ -4,11 +4,21 @@ import Sidebar from '../../components/Sidebar';
 import { useNavigate } from 'react-router-dom';
 
 export default function StudentProfile() {
-    const { user, updateStudent, logout } = useApp();
+    const { user, updateUser, logout } = useApp();
     const navigate = useNavigate();
     const [imgError, setImgError] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [uploadingResume, setUploadingResume] = useState(false);
+
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editData, setEditData] = useState({
+        name: user.name,
+        dept: user.dept,
+        year: user.year,
+        cgpa: user.cgpa,
+        phone: user.phone || '',
+        skills: (user.skills || []).join(', ')
+    });
 
     const handleAvatarUpload = async (e) => {
         const file = e.target.files?.[0];
@@ -22,7 +32,7 @@ export default function StudentProfile() {
         const reader = new FileReader();
         reader.onload = async (event) => {
             const base64String = event.target.result;
-            const res = await updateStudent(user.id, { avatar: base64String });
+            const res = await updateUser(user.id, { avatar: base64String });
             if (!res.success) alert('Failed to update profile picture');
             setUploading(false);
         };
@@ -46,7 +56,7 @@ export default function StudentProfile() {
         const reader = new FileReader();
         reader.onload = async (event) => {
             const base64String = event.target.result;
-            const res = await updateStudent(user.id, { resume: base64String });
+            const res = await updateUser(user.id, { resume: base64String });
             if (!res.success) alert('Failed to upload resume');
             setUploadingResume(false);
             setImgError(false); // Reset error if any for preview
@@ -56,6 +66,27 @@ export default function StudentProfile() {
             setUploadingResume(false);
         };
         reader.readAsDataURL(file);
+    };
+
+    const handleSaveProfile = async (e) => {
+        e.preventDefault();
+        const cgpaVal = parseFloat(editData.cgpa);
+        if (isNaN(cgpaVal) || cgpaVal < 0 || cgpaVal > 10) {
+            return alert('Please enter a valid CGPA between 0 and 10');
+        }
+
+        const updates = {
+            ...editData,
+            cgpa: cgpaVal,
+            skills: editData.skills.split(',').map(s => s.trim()).filter(s => s !== '')
+        };
+
+        const res = await updateUser(user.id, updates);
+        if (res.success) {
+            setShowEditModal(false);
+        } else {
+            alert('Failed to update profile');
+        }
     };
 
     const viewResume = () => {
@@ -87,7 +118,24 @@ export default function StudentProfile() {
                     </div>
                 </header>
                 <div className="page-body">
-                    <h1 className="page-title mb-4">My Profile</h1>
+                    <div className="page-header">
+                        <div>
+                            <h1 className="page-title">My Profile</h1>
+                            <p className="page-subtitle">Manage your academic and professional details</p>
+                        </div>
+                        <button className="btn btn-primary" onClick={() => {
+                            setEditData({
+                                name: user.name,
+                                dept: user.dept,
+                                year: user.year,
+                                cgpa: user.cgpa,
+                                phone: user.phone || '',
+                                skills: (user.skills || []).join(', ')
+                            });
+                            setShowEditModal(true);
+                        }}>✏️ Edit Profile</button>
+                    </div>
+
                     <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: 24 }}>
                         {/* Profile card */}
                         <div className="card" style={{ padding: 28, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -201,7 +249,15 @@ export default function StudentProfile() {
                             <div className="card" style={{ padding: 24 }}>
                                 <h3 style={{ fontWeight: 700, marginBottom: 16 }}>Account Information</h3>
                                 <div style={{ display: 'grid', gap: 10 }}>
-                                    {[['Full Name', user.name], ['Email', user.email], ['Role', 'Student'], ['ID', user.id]].map(([k, v]) => (
+                                    {[
+                                        ['Full Name', user.name],
+                                        ['Email', user.email],
+                                        ['Role', 'Student'],
+                                        ['ID', user.id],
+                                        ['Phone', user.phone || 'Not provided'],
+                                        ['Department', user.dept],
+                                        ['Graduation Year', user.year]
+                                    ].map(([k, v]) => (
                                         <div key={k} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                                             <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{k}</span>
                                             <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>{v}</span>
@@ -213,6 +269,93 @@ export default function StudentProfile() {
                     </div>
                 </div>
             </div>
+
+            {/* Edit Profile Modal */}
+            {showEditModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content" style={{ maxWidth: 500 }}>
+                        <div className="modal-header">
+                            <h2 className="modal-title">Edit Profile Details</h2>
+                            <button className="modal-close" onClick={() => setShowEditModal(false)}>×</button>
+                        </div>
+                        <form onSubmit={handleSaveProfile}>
+                            <div className="modal-body" style={{ display: 'grid', gap: 16 }}>
+                                <div className="form-group">
+                                    <label className="form-label">Full Name</label>
+                                    <input
+                                        className="form-control"
+                                        type="text"
+                                        value={editData.name}
+                                        onChange={e => setEditData({ ...editData, name: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                                    <div className="form-group">
+                                        <label className="form-label">Department</label>
+                                        <select
+                                            className="form-control"
+                                            value={editData.dept}
+                                            onChange={e => setEditData({ ...editData, dept: e.target.value })}
+                                        >
+                                            <option value="CSE">Computer Science</option>
+                                            <option value="ECE">Electronics</option>
+                                            <option value="ME">Mechanical</option>
+                                            <option value="Civil">Civil</option>
+                                            <option value="EE">Electrical</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="form-label">Graduation Year</label>
+                                        <input
+                                            className="form-control"
+                                            type="number"
+                                            value={editData.year}
+                                            onChange={e => setEditData({ ...editData, year: parseInt(e.target.value) })}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">CGPA (0.0 - 10.0)</label>
+                                    <input
+                                        className="form-control"
+                                        type="number"
+                                        step="0.01"
+                                        value={editData.cgpa}
+                                        onChange={e => setEditData({ ...editData, cgpa: e.target.value })}
+                                        required
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Phone Number</label>
+                                    <input
+                                        className="form-control"
+                                        type="tel"
+                                        value={editData.phone}
+                                        onChange={e => setEditData({ ...editData, phone: e.target.value })}
+                                        placeholder="Enter your mobile number"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label className="form-label">Skills (comma separated)</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows="3"
+                                        value={editData.skills}
+                                        onChange={e => setEditData({ ...editData, skills: e.target.value })}
+                                        placeholder="React, Node.js, Python..."
+                                    />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button type="button" className="btn btn-ghost" onClick={() => setShowEditModal(false)}>Cancel</button>
+                                <button type="submit" className="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
