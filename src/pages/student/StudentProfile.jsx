@@ -168,7 +168,9 @@ export default function StudentProfile() {
                                         ) : (
                                             <div style={{ textAlign: 'center', color: 'var(--text-muted)' }}>
                                                 <div style={{ fontSize: '2rem', marginBottom: 4 }}>📄</div>
-                                                <div style={{ fontSize: '0.6rem', fontWeight: 600, textTransform: 'uppercase' }}>Document</div>
+                                                <div style={{ fontSize: '0.6rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                    {user.resume?.includes('pdf') ? 'PDF' : user.resume?.includes('word') || user.resume?.includes('officedocument') ? 'Word' : 'Document'}
+                                                </div>
                                             </div>
                                         )}
                                     </a>
