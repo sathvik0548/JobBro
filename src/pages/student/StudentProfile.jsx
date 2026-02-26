@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import Sidebar from '../../components/Sidebar';
+import { useNavigate } from 'react-router-dom';
 
 export default function StudentProfile() {
-    const { user, updateStudent } = useApp();
+    const { user, updateStudent, logout } = useApp();
+    const navigate = useNavigate();
     const [imgError, setImgError] = useState(false);
     const [uploading, setUploading] = useState(false);
 
@@ -36,7 +38,7 @@ export default function StudentProfile() {
             <div className="main-content">
                 <header className="topbar">
                     <div className="topbar-title">My Profile</div>
-                    <div className="topbar-user">
+                    <div className="topbar-user" style={{ cursor: 'pointer' }} onClick={() => navigate('/student/profile')} title="View Profile">
                         <div className="avatar">
                             {user.avatar ? <img src={user.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : user.name[0]}
                         </div>
@@ -87,6 +89,9 @@ export default function StudentProfile() {
                                     <span style={{ fontSize: '0.8rem', color: 'var(--primary)' }}>CGPA</span>
                                     <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--primary)' }}>{user.cgpa}</span>
                                 </div>
+                                <button className="btn btn-danger w-full mt-3" onClick={() => { logout(); navigate('/'); }} style={{ justifyContent: 'center' }}>
+                                    🚪 Log Out
+                                </button>
                             </div>
                         </div>
 

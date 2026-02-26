@@ -30,8 +30,8 @@ export default function StudentDashboard() {
             <div className="main-content">
                 <header className="topbar">
                     <div className="topbar-title">Student Dashboard</div>
-                    <div className="topbar-user">
-                        <div className="avatar">{user.name[0]}</div>
+                    <div className="topbar-user" style={{ cursor: 'pointer' }} onClick={() => navigate('/student/profile')} title="View Profile">
+                        <div className="avatar">{user.avatar ? <img src={user.avatar} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : user.name[0]}</div>
                         <span>{user.name}</span>
                     </div>
                 </header>
