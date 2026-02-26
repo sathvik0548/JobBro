@@ -11,6 +11,8 @@ export default function JobDetail() {
     const { jobs, user, applyToJob, hasApplied } = useApp();
     const navigate = useNavigate();
     const [toast, setToast] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
     const job = jobs.find(j => j.id === id);
 
     if (!job) return (
@@ -31,10 +33,12 @@ export default function JobDetail() {
     ];
     const eligible = checks.every(c => c.pass);
 
-    async function handleApply() {
-        if (!eligible) return setToast('You do not meet the eligibility criteria for this job.');
-        const res = await applyToJob(job.id);
+    async function handleApply(formData) {
+        setSubmitting(true);
+        const res = await applyToJob(job.id, formData);
+        setSubmitting(false);
         if (res.success) {
+            setShowModal(false);
             setToast('✅ Application submitted successfully!');
             setTimeout(() => navigate('/student/applications'), 1500);
         } else {
@@ -143,7 +147,7 @@ export default function JobDetail() {
                                 ) : (
                                     <button
                                         className={`btn btn-primary w-full btn-lg`}
-                                        onClick={handleApply}
+                                        onClick={() => setShowModal(true)}
                                         disabled={!eligible || days <= 0}
                                         style={{ marginBottom: 12 }}
                                     >
@@ -166,6 +170,87 @@ export default function JobDetail() {
                     </div>
                 </div>
             </div>
+            {/* Modal */}
+            {showModal && (
+                <div className="modal-backdrop">
+                    <div className="modal-container">
+                        <header className="modal-header">
+                            <div>
+                                <h1 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Apply to {job.company}</h1>
+                                <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>{job.title} · {job.location} · {job.ctc}</p>
+                            </div>
+                            <button className="modal-close-btn" onClick={() => setShowModal(false)}>✕</button>
+                        </header>
+
+                        <div className="modal-body">
+                            <div className="form-info-bar">
+                                📋 <b>Application Form</b> — Fill in your details and click <b>Submit Application</b> at the bottom.
+                            </div>
+
+                            <form id="apply-form" onSubmit={(e) => {
+                                e.preventDefault();
+                                const fd = new FormData(e.target);
+                                handleApply({
+                                    phone: fd.get('phone'),
+                                    linkedin: fd.get('linkedin'),
+                                    github: fd.get('github'),
+                                    motivation: fd.get('motivation')
+                                });
+                            }}>
+                                <div className="modal-form-grid">
+                                    <div className="form-group">
+                                        <label className="modal-label">Full Name *</label>
+                                        <input className="modal-input" value={user.name} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">Student ID *</label>
+                                        <input className="modal-input" value={user.id} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">Email *</label>
+                                        <input className="modal-input" value={user.email} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">Phone Number *</label>
+                                        <input name="phone" className="modal-input" placeholder="Enter your mobile number" required />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">Department</label>
+                                        <input className="modal-input" value={user.dept} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">Year</label>
+                                        <input className="modal-input" value={user.year} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">CGPA</label>
+                                        <input className="modal-input" value={user.cgpa} disabled />
+                                    </div>
+                                    <div className="form-group">
+                                        <label className="modal-label">LinkedIn Profile</label>
+                                        <input name="linkedin" className="modal-input" placeholder="linkedin.com/in/yourname" />
+                                    </div>
+                                </div>
+                                <div className="form-group" style={{ marginTop: 20 }}>
+                                    <label className="modal-label">GitHub / Portfolio URL</label>
+                                    <input name="github" className="modal-input" placeholder="github.com/yourname" />
+                                </div>
+                                <div className="form-group" style={{ marginTop: 20 }}>
+                                    <label className="modal-label">Why do you want to join {job.company}? *</label>
+                                    <textarea name="motivation" className="modal-input modal-textarea" placeholder="Tell us about your interests and why you are a good fit..." required></textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <footer className="modal-footer">
+                            <button className="btn btn-ghost" onClick={() => setShowModal(false)} style={{ color: '#fff' }}>✕ Cancel</button>
+                            <button className="btn btn-primary" type="submit" form="apply-form" disabled={submitting}>
+                                {submitting ? '⏳ Submitting...' : '🚀 Submit Application'}
+                            </button>
+                        </footer>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

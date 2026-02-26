@@ -78,7 +78,7 @@ export function AppProvider({ children }) {
         return { success: true };
     }
 
-    async function applyToJob(jobId) {
+    async function applyToJob(jobId, extraData = {}) {
         if (!user) return { success: false };
         const already = db.applications.find(a => a.jobId === jobId && a.studentId === user.id);
         if (already) return { success: false, error: 'Already applied.' };
@@ -89,6 +89,7 @@ export function AppProvider({ children }) {
             jobId,
             appliedDate: new Date().toISOString().split('T')[0],
             status: 'Applied',
+            ...extraData
         };
 
         const newDb = { ...db, applications: [...db.applications, newApp] };
