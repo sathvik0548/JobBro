@@ -765,7 +765,7 @@ ul {
 .auth-page {
   min-height: 100vh;
   background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
-    url('https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&w=1600&q=80');
+    url('https://images.unsplash.com/photo-1542744173-05336fcc7ad4?q=80&w=2070&auto=format&fit=crop');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
