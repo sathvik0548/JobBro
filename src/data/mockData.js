@@ -2,7 +2,7 @@
 // HELPERS & CONSTANTS — JobBro
 // =============================================
 
-export const DEPARTMENTS = ['CSE', 'ECE', 'ME', 'Civil', 'MBA'];
+export const DEPARTMENTS = ['CSE', 'ECE', 'ME', 'Civil', 'MBA', 'CSM', 'CST', 'CAI'];
 export const YEARS = ['1st', '2nd', '3rd', '4th'];
 
 export const COMPANY_EMOJIS = {
