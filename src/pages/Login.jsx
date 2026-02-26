@@ -11,8 +11,6 @@ export default function Login() {
     const { login } = useApp();
     const navigate = useNavigate();
 
-
-
     async function handleLogin(e) {
         e.preventDefault();
         setLoading(true);
@@ -47,11 +45,20 @@ export default function Login() {
                             <div className="auth-card-desc">Browse jobs, apply to opportunities, and track your status</div>
                             <button className="btn btn-primary w-full">Enter as Student</button>
                         </div>
-
+                        <div className="auth-card" onClick={() => {
+                            setMode('admin');
+                            setEmail('admin@placement.edu');
+                            setPassword('123456');
+                        }}>
+                            <div className="auth-card-icon">🏛️</div>
+                            <div className="auth-card-title">Placement Cell</div>
+                            <div className="auth-card-desc">Post jobs, manage applicants, and update statuses</div>
+                            <button className="btn btn-outline w-full">Enter as Admin</button>
+                        </div>
                     </div>
                 ) : (
                     <div style={{ background: '#fff', borderRadius: 16, padding: 36, width: '100%', maxWidth: 420, boxShadow: 'var(--shadow-md)', border: '1px solid var(--border)' }}>
-                        <button onClick={() => { setMode(null); setError(''); }} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 600, marginBottom: 20, cursor: 'pointer', fontSize: '0.875rem' }}>← Back to Selection</button>
+                        <button onClick={() => { setMode(null); setError(''); setEmail(''); setPassword(''); }} style={{ background: 'none', border: 'none', color: 'var(--primary)', fontWeight: 600, marginBottom: 20, cursor: 'pointer', fontSize: '0.875rem' }}>← Back to Selection</button>
                         <div style={{ fontSize: '2rem', marginBottom: 8 }}>{mode === 'admin' ? '🏛️' : '🎓'}</div>
                         <h2 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: 4 }}>{mode === 'admin' ? 'Placement Cell Login' : 'Student Login'}</h2>
                         <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginBottom: 24 }}>Enter your credentials to continue</p>
@@ -79,7 +86,7 @@ export default function Login() {
                             </p>
                         )}
                         <div style={{ marginTop: 16, padding: '10px 14px', background: 'var(--bg-page)', borderRadius: 8, fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                            💡 Please use your college-issued credentials to sign in.
+                            💡 Admin Demo: <b>admin@placement.edu</b> / <b>123456</b>
                         </div>
                     </div>
                 )}
