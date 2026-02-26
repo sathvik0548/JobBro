@@ -58,6 +58,21 @@ export default function StudentProfile() {
         reader.readAsDataURL(file);
     };
 
+    const viewResume = () => {
+        if (!user.resume) return;
+        try {
+            const win = window.open();
+            if (user.resume.includes('application/pdf')) {
+                win.document.write(`<html><head><title>Resume Viewer</title></head><body style="margin:0;padding:0;overflow:hidden"><iframe src="${user.resume}" frameborder="0" style="width:100%;height:100%" allowfullscreen></iframe></body></html>`);
+            } else {
+                win.location.href = user.resume;
+            }
+        } catch (e) {
+            console.error("Popup blocked or error opening resume:", e);
+            window.open(user.resume, '_blank');
+        }
+    };
+
     return (
         <div className="page-layout">
             <Sidebar />
@@ -138,7 +153,7 @@ export default function StudentProfile() {
                                     <h3 style={{ fontWeight: 700, marginBottom: 16 }}>Resume</h3>
                                     <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
                                         {user.resume ? (
-                                            <a href={user.resume} target="_blank" rel="noopener noreferrer" className="btn btn-outline">📄 View Resume</a>
+                                            <button onClick={viewResume} className="btn btn-outline">📄 View Resume</button>
                                         ) : (
                                             <p className="text-muted text-sm" style={{ marginBottom: 0 }}>No resume uploaded.</p>
                                         )}
@@ -157,7 +172,13 @@ export default function StudentProfile() {
                                     </div>
                                 </div>
                                 {user.resume && (
-                                    <a href={user.resume} target="_blank" rel="noopener noreferrer" style={{ width: 80, height: 100, borderRadius: 8, border: '1px solid var(--border)', overflow: 'hidden', background: 'var(--bg-page)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)', flexShrink: 0, marginLeft: 16, textDecoration: 'none' }}>
+                                    <div
+                                        onClick={viewResume}
+                                        style={{ width: 80, height: 100, borderRadius: 8, border: '1px solid var(--border)', overflow: 'hidden', background: 'var(--bg-page)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)', flexShrink: 0, marginLeft: 16, cursor: 'pointer', transition: 'transform 0.2s' }}
+                                        title="Click to view resume"
+                                        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                                        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                                    >
                                         {!imgError ? (
                                             <img
                                                 src={user.resume}
@@ -173,7 +194,7 @@ export default function StudentProfile() {
                                                 </div>
                                             </div>
                                         )}
-                                    </a>
+                                    </div>
                                 )}
                             </div>
 
